@@ -1,0 +1,1535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ethereum extitutional</title>
+<meta name="description" content="the other half of the barbell. an independent nonprofit growing open, networked, community-shaped coordination at ethereum's app layer.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 60'><circle cx='24' cy='28' r='23' fill='%23b8f05c' opacity='.22'/><path d='M4.2 25.5C6 12.5 14.5 4.5 24 4.5s18 8 19.8 21c.4 2.8-1.9 5-4.7 5H8.9c-2.8 0-5.1-2.2-4.7-5z' fill='%23b8f05c'/><ellipse cx='14.5' cy='13.5' rx='3.4' ry='2' fill='%23f7ffde' opacity='.9'/><ellipse cx='30' cy='9.5' rx='2.6' ry='1.6' fill='%23f7ffde' opacity='.8'/><path d='M19.2 30.5c-.6 6.4-.4 11.2 1 15.6.4 1.4 1.6 2.4 3 2.4h1.6c1.4 0 2.6-1 3-2.4 1.4-4.4 1.6-9.2 1-15.6z' fill='%23e6f5bd'/><path d='M22.5 48.5c-1.5 3-4 5.2-8.5 6.3M25.5 48.5c1.5 3 4 5.2 8.5 6.3M24 49c.2 3.4 1 6.4 3 9' stroke='%23b8f05c' stroke-width='2.4' stroke-linecap='round' fill='none'/></svg>">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ethereum extitutional">
+<meta property="og:title" content="ethereum extitutional 🍄">
+<meta property="og:description" content="a new extitution for ethereum. quadratic funding + trustgraph governance, growing at the app layer.">
+<meta property="og:url" content="https://extitution.io">
+<meta property="og:image" content="https://ethereum-extitutional.surge.sh/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ethereum extitutional 🍄">
+<meta name="twitter:description" content="a new extitution for ethereum. quadratic funding + trustgraph governance, growing at the app layer.">
+<meta name="twitter:image" content="https://ethereum-extitutional.surge.sh/og.png">
+<style>
+  :root{
+    --bg:#0c0e0a;
+    --bg2:#12150e;
+    --panel:#161a11;
+    --line:#2a2f22;
+    --ink:#e9e6da;
+    --ink-dim:#a5a294;
+    --ink-faint:#82806f;
+    --lime:#b8f05c;
+    --lime-dim:#8fc23e;
+    --lilac:#a5b4fc;
+    --lilac-dim:#7c8cf0;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    --maxw:1060px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1100px 700px at 85% -220px,#141a0d,var(--bg) 60%) fixed,var(--bg);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--lime);color:#0c0e0a}
+  a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .mono{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:lowercase}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(12,14,10,.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .wordmark{font-family:var(--mono);font-size:13px;letter-spacing:.1em;text-decoration:none;display:flex;align-items:center;gap:10px}
+  .wordmark b{font-weight:600}
+
+  /* ---------- the mark: glowing mushroom + living mycelium roots ---------- */
+  .shroom{display:inline-block;line-height:0}
+  .shroom svg{
+    overflow:visible;
+    animation:shpulse 3.4s ease-in-out infinite;
+    transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+    transform-origin:50% 62%;
+  }
+  .shroom .root{stroke-dasharray:22;stroke-dashoffset:11;opacity:.75;transition:stroke-dashoffset .8s cubic-bezier(.22,1,.36,1),opacity .4s}
+  .shroom .spore{opacity:0}
+  .shroom .spore:nth-of-type(2){animation-delay:.3s}
+  .shroom .spore:nth-of-type(3){animation-delay:.65s}
+  .shroom:hover svg, a:hover .shroom svg{
+    transform:scale(1.16) rotate(-4deg);
+    animation:shpulse 1s ease-in-out infinite;
+  }
+  .shroom:hover .root, a:hover .shroom .root{stroke-dashoffset:0;opacity:1}
+  .shroom:hover .spore, a:hover .shroom .spore{animation:sporerise 1.3s ease-out infinite}
+  @keyframes shpulse{
+    0%,100%{filter:drop-shadow(0 0 5px rgba(184,240,92,.55)) drop-shadow(0 0 16px rgba(184,240,92,.28))}
+    50%{filter:drop-shadow(0 0 9px rgba(184,240,92,.95)) drop-shadow(0 0 30px rgba(184,240,92,.5))}
+  }
+  @keyframes sporerise{
+    0%{opacity:0;transform:translateY(5px)}
+    20%{opacity:.95}
+    100%{opacity:0;transform:translateY(-16px)}
+  }
+  .hero-shroom{display:block;margin-bottom:28px}
+  /* lineage: the org grows out of the mushroom, rooted in ethereum, rooted in gitcoin */
+  .lineage{margin-bottom:36px}
+  .lineage .hero-shroom{margin-bottom:0}
+  .lin-items{margin-left:36px;border-left:1px solid rgba(184,240,92,.32);padding:10px 0 2px}
+  .lin-item{display:block;position:relative;padding:7px 0 7px 24px;font-family:var(--mono);font-size:12px;letter-spacing:.14em}
+  .lin-item::before{content:"";position:absolute;left:0;top:50%;width:15px;height:1px;background:linear-gradient(90deg,rgba(184,240,92,.32),rgba(184,240,92,.75))}
+  .lin-item.l1{color:var(--lime)}
+  .lin-item.l2{color:var(--ink-dim)}
+  .lin-item.l3{color:var(--ink-faint)}
+  .hero-shroom .root{stroke-dashoffset:4;opacity:.9}
+  .hero-shroom .spore{animation:sporerise 1.9s ease-out infinite}
+  .hero-shroom .spore:nth-of-type(2){animation-delay:.65s}
+  .hero-shroom .spore:nth-of-type(3){animation-delay:1.2s}
+  .footmark{vertical-align:-7px;margin-right:10px}
+  nav .links{display:flex;gap:22px}
+  nav .links a{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-decoration:none;color:var(--ink-dim)}
+  nav .links a:hover{color:var(--lime)}
+  nav .links a.active{color:var(--lime)}
+
+  /* ---------- views ---------- */
+  [data-view]{display:none}
+  [data-view].on{display:block}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:#0a0c08}
+  .hero canvas{position:absolute;inset:0;width:100%;height:100%}
+  .hero .veil{
+    position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(760px 540px at 25% 45%,rgba(10,12,8,.72),rgba(10,12,8,.22) 55%,transparent 74%),
+      linear-gradient(180deg,rgba(10,12,8,.4),transparent 18%,transparent 76%,rgba(12,14,10,.9));
+  }
+  .hero .inner{
+    position:relative;min-height:calc(100svh - 60px);
+    display:flex;flex-direction:column;justify-content:center;
+    padding:90px 0 110px;
+  }
+  .eyebrow{color:var(--lime);margin-bottom:22px;display:block}
+  .hero .eyebrow{display:inline-flex;align-items:center;gap:10px}
+  .hero .eyebrow::before{content:"";width:26px;height:1px;background:var(--lime-dim)}
+  h1{
+    font-size:clamp(46px,7vw,88px);
+    line-height:1.02;font-weight:500;letter-spacing:-.018em;
+    max-width:15ch;
+    text-shadow:0 0 60px rgba(184,240,92,.14);
+  }
+  h1 .spore{color:var(--lime);text-shadow:0 0 26px rgba(184,240,92,.65)}
+  .hero h1{max-width:24ch;font-size:clamp(40px,6.2vw,80px)}
+  .hero h1 s{color:var(--ink-faint);text-decoration-thickness:3px;text-decoration-color:var(--lime-dim)}
+  .hero h1 b{font-weight:500;color:#d8ff96;text-shadow:0 0 40px rgba(184,240,92,.45)}
+  .hero p.lede{max-width:56ch;margin-top:28px;font-size:20px;color:var(--ink-dim)}
+  .hero p.lede em{color:var(--ink);font-style:normal;border-bottom:1px solid var(--lime-dim)}
+  .scrollhint{
+    position:absolute;left:50%;bottom:22px;transform:translateX(-50%);
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--ink-faint);
+    display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;
+  }
+  .scrollhint i{width:1px;height:34px;background:linear-gradient(180deg,var(--lime-dim),transparent);display:block;animation:drip 2.2s ease-in-out infinite}
+  @keyframes drip{0%{transform:scaleY(.2);transform-origin:top}55%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+  .ctas{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+  .btn{
+    font-family:var(--mono);font-size:13px;letter-spacing:.08em;
+    padding:13px 22px;border-radius:6px;text-decoration:none;
+    border:1px solid var(--line);color:var(--ink);transition:.15s;
+  }
+  .btn:hover{border-color:var(--lime-dim);color:var(--lime)}
+  .btn.solid{background:var(--lime);border-color:var(--lime);color:#0c0e0a;font-weight:600}
+  .btn.solid:hover{background:#ccff7a;border-color:#ccff7a;color:#0c0e0a}
+  .btn.lilac-solid{background:var(--lilac);border-color:var(--lilac);color:#0c0e0a;font-weight:600}
+  .btn.lilac-solid:hover{background:#c3cdfd;border-color:#c3cdfd}
+
+  /* ---------- sections ---------- */
+  section.block{padding:90px 0;border-bottom:1px solid var(--line);position:relative}
+  section.block > .wrap{position:relative;z-index:1}
+  canvas.netbg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  h2{font-size:clamp(28px,3.6vw,42px);font-weight:500;letter-spacing:-.01em;line-height:1.15;max-width:24ch}
+  .sub{color:var(--ink-dim);max-width:60ch;margin-top:16px}
+  .sub a{color:var(--ink);text-decoration-color:var(--lime-dim)}
+
+  /* institution vs extitution */
+  .versus{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
+  .vcard{border:1px solid var(--line);border-radius:12px;padding:32px;background:var(--bg2)}
+  .vcard .tag{display:inline-block;margin-bottom:18px}
+  .vcard.inst .tag{color:var(--lilac)}
+  .vcard.extit{border-color:#3b4a25;background:linear-gradient(180deg,#151a0e, var(--bg2))}
+  .vcard.extit .tag{color:var(--lime)}
+  .vcard h3{font-size:26px;font-weight:500;margin-bottom:14px}
+  .vcard ul{list-style:none;margin-top:6px}
+  .vcard li{padding:9px 0;border-top:1px solid var(--line);color:var(--ink-dim);font-size:16.5px}
+  .vcard li b{color:var(--ink);font-weight:500}
+  .vcard .verdict{margin-top:18px;font-family:var(--mono);font-size:12px;letter-spacing:.12em}
+  .vcard.inst .verdict{color:var(--lilac-dim)}
+  .vcard.extit .verdict{color:var(--lime)}
+  .credit{margin-top:26px;color:var(--ink-faint);font-size:15px;max-width:64ch}
+
+  /* 2x2 map */
+  .map{margin-top:52px;position:relative}
+  .grid2x2{
+    display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
+    border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg2);
+  }
+  .q{padding:30px 28px;min-height:170px;position:relative}
+  .q + .q{border-left:1px solid var(--line)}
+  .q:nth-of-type(3){border-left:0;border-top:1px solid var(--line)}
+  .q:nth-of-type(4){border-top:1px solid var(--line);border-left:1px solid var(--line)}
+  .q .who{font-size:17px;color:var(--ink-dim);margin-top:10px;line-height:1.5}
+  .q .who b{color:var(--ink);font-weight:500}
+  .q.us{background:linear-gradient(135deg,#1a2410,#141a0c)}
+  .q.us .who b{color:var(--lime)}
+  .q .lbl{color:var(--ink-faint)}
+  .q.us .lbl{color:var(--lime)}
+  .axis{position:absolute;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--ink-faint)}
+  .axis.top{top:-26px;left:50%;transform:translateX(-50%)}
+  .axis.bottom{bottom:-26px;left:50%;transform:translateX(-50%)}
+  .axis.left{left:-14px;top:50%;transform:translate(-100%,-50%)}
+  .axis.right{right:-14px;top:50%;transform:translate(100%,-50%)}
+  .maplegend{margin-top:44px;color:var(--ink-faint);font-size:15px;max-width:62ch}
+  .maplegend a{color:var(--ink-dim);text-decoration-color:var(--lime-dim)}
+
+  /* app cards */
+  .apps{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
+  .app{
+    display:block;text-decoration:none;border:1px solid var(--line);border-radius:14px;
+    padding:38px 34px;background:var(--bg2);transition:.18s;position:relative;overflow:hidden;
+  }
+  .app:hover{transform:translateY(-3px)}
+  .app.fund:hover{border-color:var(--lime-dim);box-shadow:0 12px 40px -18px rgba(184,240,92,.35)}
+  .app.trust:hover{border-color:var(--lilac-dim);box-shadow:0 12px 40px -18px rgba(165,180,252,.35)}
+  .app .applbl{display:flex;justify-content:space-between;margin-bottom:26px}
+  .app.fund .applbl{color:var(--lime)}
+  .app.trust .applbl{color:var(--lilac)}
+  .app h3{font-size:40px;font-weight:500;letter-spacing:-.01em}
+  .app h3 span{color:var(--ink-faint);font-size:22px}
+  .app p{color:var(--ink-dim);margin-top:14px;font-size:17px;max-width:44ch}
+  .app .go{margin-top:28px;display:inline-block}
+  .app.fund .go{color:var(--lime)}
+  .app.trust .go{color:var(--lilac)}
+  .app .glyph{position:absolute;right:28px;bottom:28px;opacity:.9}
+
+  /* principles */
+  .principles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:46px}
+  .prin{border-top:2px solid var(--line);padding-top:18px}
+  .prin .k{color:var(--lime);margin-bottom:10px;display:block}
+  .prin p{font-size:15.5px;color:var(--ink-dim)}
+
+  /* footer */
+  footer{padding:56px 0 72px}
+  footer .wrap{display:flex;justify-content:space-between;align-items:flex-start;gap:30px;flex-wrap:wrap}
+  footer p{color:var(--ink-faint);font-size:14.5px;max-width:44ch}
+  footer .fl{display:flex;gap:20px}
+  footer .fl a{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--ink-dim);text-decoration:none}
+  footer .fl a:hover{color:var(--lime)}
+
+  /* ---------- app pages shared ---------- */
+  .apphero{padding:96px 0 80px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  .apphero > .wrap{position:relative;z-index:1}
+  .cta-final{position:relative;overflow:hidden}
+  .cta-final > .wrap{position:relative;z-index:1}
+  .apphero .backlink{display:inline-block;margin-bottom:34px;text-decoration:none;color:var(--ink-faint)}
+  .apphero .backlink:hover{color:var(--ink)}
+  .apphero h1{max-width:18ch}
+  .apphero p.lede{max-width:56ch;margin-top:24px;font-size:19px;color:var(--ink-dim)}
+  .fund-theme .eyebrow, .fund-theme .accent{color:var(--lime)}
+  .trust-theme .eyebrow, .trust-theme .accent{color:var(--lilac)}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+  .step{border:1px solid var(--line);border-radius:12px;padding:28px;background:var(--bg2)}
+  .step .n{font-family:var(--mono);font-size:12px;letter-spacing:.14em;margin-bottom:16px;display:block}
+  .fund-theme .step .n{color:var(--lime)}
+  .trust-theme .step .n{color:var(--lilac)}
+  .step h3{font-size:22px;font-weight:500;margin-bottom:10px}
+  .step p{color:var(--ink-dim);font-size:16px}
+  .step .math{font-family:var(--mono);font-size:13px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin-top:14px;display:inline-block}
+
+  /* mock UI chrome */
+  .mock{
+    margin-top:52px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg2);
+  }
+  .mock .chrome{
+    display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--panel);
+  }
+  .mock .chrome .dots{display:flex;gap:6px}
+  .mock .chrome .dots i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
+  .mock .chrome .url{font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.05em}
+  .mock > .bar{display:flex;justify-content:space-between;align-items:center;padding:22px 26px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:14px}
+  .mock > .bar h4{font-size:21px;font-weight:500}
+  .live{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--lime);display:inline-flex;align-items:center;gap:7px}
+  .live i{width:7px;height:7px;border-radius:50%;background:var(--lime);display:block;animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+  .statrow{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+  .stat{padding:20px 26px}
+  .stat + .stat{border-left:1px solid var(--line)}
+  .stat .v{font-size:26px;font-weight:500;letter-spacing:-.01em}
+  .stat .k{font-family:var(--mono);font-size:11px;letter-spacing:.13em;color:var(--ink-faint);margin-top:4px}
+  .projects{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .proj{padding:24px 26px;border-bottom:1px solid var(--line)}
+  .proj:nth-child(odd){border-right:1px solid var(--line)}
+  .proj:nth-last-child(-n+2){border-bottom:0}
+  .proj .cat{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-faint)}
+  .proj h5{font-size:18px;font-weight:500;margin:8px 0 4px}
+  .proj .meta{font-size:14px;color:var(--ink-dim)}
+  .proj .meta b{color:var(--lime);font-weight:500}
+  .track{height:5px;border-radius:3px;background:var(--line);margin-top:14px;overflow:hidden}
+  .track i{display:block;height:100%;background:linear-gradient(90deg,var(--lime-dim),var(--lime));border-radius:3px}
+
+  /* trust mock */
+  .trust-mock-body{display:grid;grid-template-columns:1.1fr .9fr}
+  .props{border-right:1px solid var(--line)}
+  .prop{padding:22px 26px;border-bottom:1px solid var(--line)}
+  .prop:last-child{border-bottom:0}
+  .prop .id{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-faint)}
+  .prop h5{font-size:17.5px;font-weight:500;margin:7px 0 12px}
+  .dual{display:grid;gap:7px}
+  .dual .row{display:grid;grid-template-columns:64px 1fr 52px;gap:10px;align-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-faint)}
+  .dual .bar{height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+  .dual .bar i{display:block;height:100%;border-radius:3px}
+  .dual .gtc i{background:var(--ink-faint)}
+  .dual .tw i{background:linear-gradient(90deg,var(--lilac-dim),var(--lilac))}
+  .prop .status{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;margin-top:12px;display:inline-block;padding:4px 9px;border-radius:4px;border:1px solid var(--line)}
+  .prop .status.pass{color:var(--lime);border-color:#3b4a25}
+  .prop .status.open{color:var(--lilac);border-color:#3a3f63}
+  .graphpane{padding:22px 26px;display:flex;flex-direction:column}
+  .graphpane .k{font-family:var(--mono);font-size:11px;letter-spacing:.13em;color:var(--ink-faint);margin-bottom:8px}
+  .graphpane svg{width:100%;height:auto;flex:1}
+  .graphpane .note{font-size:13.5px;color:var(--ink-faint);margin-top:10px}
+
+  .cta-final{padding:90px 0;text-align:left}
+
+  /* ---------- gitcoin impact band + /impact page ---------- */
+  .legalnote{margin-top:26px;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--ink-faint)}
+  .legalnote b{color:var(--ink-dim);font-weight:500}
+  .impactband{border-top:1px solid var(--line);background:linear-gradient(180deg,#10140b,var(--bg));padding:70px 0;position:relative;overflow:hidden}
+  .impactband > .wrap{position:relative;z-index:1}
+  .impactband h2{margin-top:8px}
+  .ib-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:38px 0 28px}
+  .ib-stat .v{font-size:clamp(30px,3.4vw,46px);font-weight:500;color:var(--lime);letter-spacing:-.01em;text-shadow:0 0 34px rgba(184,240,92,.25)}
+  .ib-stat .k{font-family:var(--mono);font-size:11px;letter-spacing:.13em;color:var(--ink-faint);margin-top:6px}
+  .ib-note{color:var(--ink-dim);font-size:16.5px;max-width:64ch}
+  .ib-link{display:inline-block;margin-top:26px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--lime);text-decoration:none;border:1px solid #3b4a25;border-radius:6px;padding:13px 22px;transition:.15s}
+  .ib-link:hover{border-color:var(--lime-dim);background:#151a0e}
+  .bigstats{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:52px}
+  .bigstat{border-top:2px solid var(--line);padding-top:16px}
+  .bigstat .v{font-size:clamp(32px,3.8vw,52px);font-weight:500;color:var(--lime);letter-spacing:-.01em;text-shadow:0 0 34px rgba(184,240,92,.22)}
+  .bigstat .k{font-family:var(--mono);font-size:11px;letter-spacing:.13em;color:var(--ink-faint);margin-top:8px}
+  .growth{display:flex;gap:16px;align-items:flex-end;margin-top:56px;height:190px}
+  .gbar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:10px;text-align:center;height:100%}
+  .gbar i{display:block;background:linear-gradient(180deg,var(--lime),var(--lime-dim));border-radius:6px 6px 2px 2px;box-shadow:0 0 24px -6px rgba(184,240,92,.5)}
+  .gbar .gv{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+  .gbar .gy{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.12em}
+  .growth-cap{font-family:var(--mono);font-size:11px;letter-spacing:.13em;color:var(--ink-faint);margin-top:14px}
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+  .case{border:1px solid var(--line);border-radius:12px;padding:28px;background:var(--bg2);transition:.15s}
+  .case:hover{border-color:#3b4a25}
+  .case .cat{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--lime)}
+  .case h4{font-size:21px;font-weight:500;margin:10px 0 8px}
+  .case p{font-size:15.5px;color:var(--ink-dim)}
+  .case p b{color:var(--ink);font-weight:500}
+  .cases.four{grid-template-columns:repeat(2,1fr)}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .chip{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--lime);border:1px solid #3b4a25;border-radius:20px;padding:6px 14px}
+  .quotes{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
+  .pull{border-left:2px solid var(--lime-dim);padding:8px 0 8px 24px;font-size:21px;line-height:1.5}
+  .pull .who{display:block;margin-top:14px;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--ink-faint)}
+
+  .footnote-sm{color:var(--ink-faint);font-size:14px;margin-top:20px;max-width:60ch}
+
+  /* responsive */
+  @media(max-width:840px){
+    .versus,.apps,.projects,.trust-mock-body{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr}
+    .principles{grid-template-columns:1fr 1fr}
+    .statrow{grid-template-columns:1fr 1fr}
+    .stat:nth-child(3){border-left:0;border-top:1px solid var(--line)}
+    .stat:nth-child(4){border-top:1px solid var(--line)}
+    .proj:nth-child(odd){border-right:0}
+    .proj:nth-last-child(2){border-bottom:1px solid var(--line)}
+    .q{padding:20px 16px;min-height:120px}
+    .ib-stats,.bigstats{grid-template-columns:1fr 1fr}
+    .cases{grid-template-columns:1fr}
+    .quotes{grid-template-columns:1fr}
+    .growth{height:130px}
+    .props{border-right:0;border-bottom:1px solid var(--line)}
+    .axis.left,.axis.right{display:none}
+    nav .links{gap:14px}
+    nav .links a.hide-m{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="wordmark" href="#/">
+      <span class="shroom" data-size="17" aria-hidden="true"></span>
+      <span>ethereum <b>extitutional</b></span></a>
+    <div class="links">
+      <a href="#/" data-nav="home" class="hide-m">home</a>
+      <a href="#/fund" data-nav="fund">fund</a>
+      <a href="#/trust" data-nav="trust">trust</a>
+      <a href="#/impact" data-nav="impact">impact</a>
+      <a href="#/mycofi" data-nav="mycofi">mycofi</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= LANDING ================= -->
+<main data-view="home">
+
+  <header class="hero">
+    <canvas id="net"></canvas>
+    <canvas id="sporeC"></canvas>
+    <div class="veil"></div>
+    <div class="wrap inner">
+      <div class="lineage">
+        <span class="shroom hero-shroom" data-size="72" aria-hidden="true"></span>
+        <div class="lin-items">
+          <span class="lin-item l1">ethereum extitutional · a nonprofit</span>
+          <span class="lin-item l2">rooted in ethereum</span>
+          <span class="lin-item l3">rooted in gitcoin's social structure</span>
+        </div>
+      </div>
+      <h1>a new <s>institution</s> <b>extitution</b> for ethereum<span class="spore">.</span></h1>
+      <div class="ctas">
+        <a class="btn solid" href="https://t.me/+YDJcJMtgxjA3ZmQ5" target="_blank" rel="noopener">join the telegram</a>
+        <a class="btn" href="#apps" onclick="goApps(event)">see the apps</a>
+        <a class="btn" href="#idea" onclick="goIdea(event)">what's an extitution?</a>
+      </div>
+    </div>
+    <div class="scrollhint"><span>grow down</span><i></i></div>
+  </header>
+
+  <section class="block" id="idea">
+    <div class="wrap">
+      <span class="mono eyebrow">the idea</span>
+      <h2>institutions have walls. extitutions have networks.</h2>
+      <div class="versus">
+        <div class="vcard inst">
+          <span class="mono tag">institution</span>
+          <h3>formal structure</h3>
+          <ul>
+            <li><b>coordinates by</b> roles, rules, org charts</li>
+            <li><b>membership</b> decided at the door</li>
+            <li><b>optimized for</b> compliance and scale</li>
+            <li><b>serves</b> banks, asset managers, the s&amp;p 500</li>
+          </ul>
+          <div class="verdict">hard</div>
+        </div>
+        <div class="vcard extit">
+          <span class="mono tag">extitution</span>
+          <h3>networked coordination</h3>
+          <ul>
+            <li><b>coordinates by</b> relationships and open protocols</li>
+            <li><b>membership</b> is participation</li>
+            <li><b>optimized for</b> trust and aliveness</li>
+            <li><b>serves</b> the smallfolk</li>
+          </ul>
+          <div class="verdict">soft</div>
+        </div>
+      </div>
+      <p class="credit">"extitution" was coined by the philosopher michel serres. ethereum has been growing them for a decade (hackathons, daos, funding rounds, guilds) without anyone making them an explicit mandate. that's the job we're taking. for the book-length version of the thesis, read <a href="#/mycofi" style="color:var(--ink-dim);text-decoration-color:var(--lime-dim)">mycofi →</a></p>
+    </div>
+  </section>
+
+  <section class="block" id="map">
+    <div class="wrap">
+      <span class="mono eyebrow">why now</span>
+      <h2>every new ethereum org landed on the institutional side of the map.</h2>
+      <p class="sub">the 2026 wave (ethlabs, ethereum institutional) plus etherealize before it is all settlement r&amp;d, custody, and wall street gtm. good. the open side of the app layer has no dedicated steward. <a href="https://x.com/owocki/status/2077071365937729681" target="_blank" rel="noopener">that square is ours.</a></p>
+      <div class="map">
+        <div class="grid2x2">
+          <span class="axis top">protocol layer</span>
+          <span class="axis bottom">app layer</span>
+          <span class="axis left">extitutional</span>
+          <span class="axis right">institutional</span>
+          <div class="q">
+            <span class="mono lbl">protocol × extitutional</span>
+            <p class="who"><b>argot collective</b>, protocol guild</p>
+          </div>
+          <div class="q">
+            <span class="mono lbl">protocol × institutional</span>
+            <p class="who"><b>ethlabs</b> · finality, throughput, r&amp;d for institutional-scale settlement</p>
+          </div>
+          <div class="q us">
+            <span class="mono lbl">app × extitutional</span>
+            <p class="who"><b>ethereum extitutional</b> · you are here</p>
+          </div>
+          <div class="q">
+            <span class="mono lbl">app × institutional</span>
+            <p class="who"><b>ethereum institutional</b>, <b>etherealize</b> · custody, compliance, wall street gtm</p>
+          </div>
+        </div>
+      </div>
+      <p class="maplegend"><a href="https://x.com/owocki/status/2072376067604791632" target="_blank" rel="noopener">barbell strategies</a> want both ends. the institutional end got two new orgs with the same three anchor funders, ten days apart. we hold down the other end.</p>
+    </div>
+  </section>
+
+  <section class="block" id="apps">
+    <div class="wrap">
+      <span class="mono eyebrow">the fruiting bodies</span>
+      <h2>two apps, one mycelium underneath: trust.</h2>
+      <div class="apps">
+        <a class="app fund" href="#/fund">
+          <svg class="glyph" width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="30" r="10" stroke="#b8f05c" stroke-width="1.5"/>
+            <circle cx="12" cy="14" r="5" stroke="#b8f05c" stroke-width="1.5" opacity=".7"/>
+            <circle cx="32" cy="12" r="3.5" stroke="#b8f05c" stroke-width="1.5" opacity=".5"/>
+          </svg>
+          <div class="applbl mono"><span>app 01</span><span>quadratic funding</span></div>
+          <h3>fund <span>↗</span></h3>
+          <p>a quadratic funding platform for ethereum's extitutions. many small donations, one matching pool, math that favors breadth of support over depth of pockets.</p>
+          <span class="go mono">enter fund →</span>
+        </a>
+        <a class="app trust" href="#/trust">
+          <svg class="glyph" width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="10" r="3" fill="#a5b4fc"/>
+            <circle cx="10" cy="30" r="3" fill="#a5b4fc" opacity=".7"/>
+            <circle cx="34" cy="30" r="3" fill="#a5b4fc" opacity=".7"/>
+            <path d="M22 13 L10 27 M22 13 L34 27 M13 30 L31 30" stroke="#a5b4fc" stroke-width="1.2" opacity=".6"/>
+          </svg>
+          <div class="applbl mono"><span>app 02</span><span>trustgraph</span></div>
+          <h3>trust <span>↗</span></h3>
+          <p>a trustgraph that manages gtc governance. peer attestations form a web of trust, and influence follows earned credibility alongside token weight.</p>
+          <span class="go mono">enter trust →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="principles">
+    <div class="wrap">
+      <span class="mono eyebrow">how we operate</span>
+      <h2>structured like the thing we're building.</h2>
+      <div class="principles">
+        <div class="prin"><span class="mono k">01 · no new token</span><p>no new token launch, no exit. a nonprofit funded by grants, matching pools, and people who want this to exist.</p></div>
+        <div class="prin"><span class="mono k">02 · no board seats for funders</span><p>funders get transparency reports and open books. control stays with the network.</p></div>
+        <div class="prin"><span class="mono k">03 · everything open source</span><p>both apps, the mechanisms, the research. fork us. that's the point.</p></div>
+        <div class="prin"><span class="mono k">04 · built to subtract</span><p>like mycelium, the org decomposes itself into the network it feeds. success looks like being unnecessary.</p></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FUND ================= -->
+<main data-view="fund" class="fund-theme">
+  <header class="apphero" id="fund-hero">
+    <div class="wrap">
+      <a class="backlink mono" href="#/">← ethereum extitutional</a><br>
+      <span class="mono eyebrow">app 01 · quadratic funding</span>
+      <h1>fund the extitutions of ethereum.</h1>
+      <p class="lede">quadratic funding turns many small donations into a democratic signal, and the matching pool follows it. $1 from a hundred people outweighs $100 from one. the crowd decides what ethereum's open layer needs.</p>
+      <div class="ctas">
+        <a class="btn solid" href="#round" onclick="event.preventDefault();document.getElementById('round').scrollIntoView({behavior:'smooth'})">explore the live round</a>
+        <a class="btn" href="https://t.me/+YDJcJMtgxjA3ZmQ5" target="_blank" rel="noopener">apply as a project</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="block">
+    <div class="wrap">
+      <span class="mono eyebrow">how it works</span>
+      <h2>breadth of support beats depth of pockets.</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="n">step 01 · donate</span>
+          <h3>back what you trust</h3>
+          <p>any amount counts. every contribution is a signal about what the community actually values, and small ones carry outsized weight.</p>
+        </div>
+        <div class="step">
+          <span class="n">step 02 · the math</span>
+          <h3>quadratic matching</h3>
+          <p>a project's match grows with the square of the sum of square roots of its contributions. wide support compounds faster than any single check.</p>
+          <span class="math">match ∝ (Σ √cᵢ)²</span>
+        </div>
+        <div class="step">
+          <span class="n">step 03 · amplify</span>
+          <h3>the pool follows the crowd</h3>
+          <p>the matching pool tops up the projects with the broadest base of supporters. capital allocation, steered by the people closest to the work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="round">
+    <div class="wrap">
+      <span class="mono eyebrow">the platform</span>
+      <h2>a live round, at a glance.</h2>
+      <div class="mock">
+        <div class="chrome">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="url">fund.extitution.io/rounds/extitutions-01</span>
+        </div>
+        <div class="bar">
+          <h4>extitutions round 01</h4>
+          <span class="live"><i></i>live · 9 days left</span>
+        </div>
+        <div class="statrow">
+          <div class="stat"><div class="v">$250k</div><div class="k">matching pool</div></div>
+          <div class="stat"><div class="v">1,204</div><div class="k">contributors</div></div>
+          <div class="stat"><div class="v">$86.4k</div><div class="k">crowdfunded</div></div>
+          <div class="stat"><div class="v">24</div><div class="k">projects</div></div>
+        </div>
+        <div class="projects">
+          <div class="proj">
+            <span class="cat">infra · attestations</span>
+            <h5>open attestation registry</h5>
+            <div class="meta">$12.8k raised · 312 contributors · <b>est. match $41k</b></div>
+            <div class="track"><i style="width:82%"></i></div>
+          </div>
+          <div class="proj">
+            <span class="cat">community · local nodes</span>
+            <h5>local nodes collective</h5>
+            <div class="meta">$9.1k raised · 267 contributors · <b>est. match $35k</b></div>
+            <div class="track"><i style="width:70%"></i></div>
+          </div>
+          <div class="proj">
+            <span class="cat">education · translation</span>
+            <h5>translation guild</h5>
+            <div class="meta">$6.3k raised · 198 contributors · <b>est. match $26k</b></div>
+            <div class="track"><i style="width:52%"></i></div>
+          </div>
+          <div class="proj">
+            <span class="cat">tooling · wallets</span>
+            <h5>commons wallet</h5>
+            <div class="meta">$11.7k raised · 141 contributors · <b>est. match $19k</b></div>
+            <div class="track"><i style="width:38%"></i></div>
+          </div>
+          <div class="proj">
+            <span class="cat">maintenance · dependencies</span>
+            <h5>protocol gardeners</h5>
+            <div class="meta">$4.9k raised · 122 contributors · <b>est. match $15k</b></div>
+            <div class="track"><i style="width:30%"></i></div>
+          </div>
+          <div class="proj">
+            <span class="cat">media · journalism</span>
+            <h5>the smallfolk press</h5>
+            <div class="meta">$3.2k raised · 96 contributors · <b>est. match $11k</b></div>
+            <div class="track"><i style="width:22%"></i></div>
+          </div>
+        </div>
+      </div>
+      <p class="footnote-sm">mock data. sybil resistance comes from the trustgraph next door: attestation-weighted identity means fake accounts get heavily discounted.</p>
+    </div>
+  </section>
+
+  <section class="cta-final" id="fund-cta">
+    <div class="wrap">
+      <span class="mono eyebrow">for funders</span>
+      <h2>seed a matching pool. the crowd does the rest.</h2>
+      <p class="sub">matching funders set the budget and the domain. the community allocates it, one small donation at a time. transparency reports every quarter. allocation stays with the crowd.</p>
+      <div class="ctas">
+        <a class="btn solid" href="https://t.me/+YDJcJMtgxjA3ZmQ5" target="_blank" rel="noopener">join the telegram</a>
+        <a class="btn" href="#/trust">see how trust powers this →</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= TRUST ================= -->
+<main data-view="trust" class="trust-theme">
+  <header class="apphero" id="trust-hero">
+    <div class="wrap">
+      <a class="backlink mono" href="#/">← ethereum extitutional</a><br>
+      <span class="mono eyebrow">app 02 · trustgraph</span>
+      <h1>governance by web of trust.</h1>
+      <p class="lede">token voting measures capital. trustgraph measures credibility. the proposed pilot gives gtc governance both axes: what you hold, and who vouches for you.</p>
+      <div class="ctas">
+        <a class="btn lilac-solid" href="#gov" onclick="event.preventDefault();document.getElementById('gov').scrollIntoView({behavior:'smooth'})">see it in action</a>
+        <a class="btn" href="https://t.me/+YDJcJMtgxjA3ZmQ5" target="_blank" rel="noopener">read the mechanism</a>
+      </div>
+      <p class="legalnote">backed by <b>the gitcoin foundation</b> at the legal layer · a cayman foundation</p>
+    </div>
+  </header>
+
+  <section class="block">
+    <div class="wrap">
+      <span class="mono eyebrow">how it works</span>
+      <h2>attest. graph. govern.</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="n">step 01 · attest</span>
+          <h3>vouch for real work</h3>
+          <p>members attest to people they've actually built with. onchain, public, revocable. every vouch puts your own reputation behind someone else's.</p>
+        </div>
+        <div class="step">
+          <span class="n">step 02 · the graph</span>
+          <h3>trust compounds</h3>
+          <p>attestations compose into a trust graph and weight flows through it. one vouch from a trusted node outweighs twenty from unknown wallets.</p>
+          <span class="math">weight ∝ eigentrust(graph)</span>
+        </div>
+        <div class="step">
+          <span class="n">step 03 · govern</span>
+          <h3>dual-axis decisions</h3>
+          <p>proposals pass on trust-weighted signal alongside gtc weight. sybil weight decays toward zero. contributors earn a voice they can't buy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="gov">
+    <div class="wrap">
+      <span class="mono eyebrow">the platform</span>
+      <h2>gtc governance, on the graph.</h2>
+      <div class="mock">
+        <div class="chrome">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="url">trust.extitution.io/gov/gtc</span>
+        </div>
+        <div class="bar">
+          <h4>gtc governance</h4>
+          <span class="live" style="color:var(--lilac)"><i style="background:var(--lilac)"></i>3 proposals open</span>
+        </div>
+        <div class="statrow">
+          <div class="stat"><div class="v">2,841</div><div class="k">attested members</div></div>
+          <div class="stat"><div class="v">18,392</div><div class="k">active attestations</div></div>
+          <div class="stat"><div class="v">64%</div><div class="k">trust participation</div></div>
+          <div class="stat"><div class="v">0.91</div><div class="k">sybil damping factor</div></div>
+        </div>
+        <div class="trust-mock-body">
+          <div class="props">
+            <div class="prop">
+              <span class="id">gcp-042</span>
+              <h5>fund extitutions round 02 with 400k gtc</h5>
+              <div class="dual">
+                <div class="row"><span>gtc</span><div class="bar gtc"><i style="width:71%"></i></div><span>71%</span></div>
+                <div class="row"><span>trust</span><div class="bar tw"><i style="width:88%"></i></div><span>88%</span></div>
+              </div>
+              <span class="status pass">passing · both axes</span>
+            </div>
+            <div class="prop">
+              <span class="id">gcp-043</span>
+              <h5>delegate treasury ops to steward council v3</h5>
+              <div class="dual">
+                <div class="row"><span>gtc</span><div class="bar gtc"><i style="width:64%"></i></div><span>64%</span></div>
+                <div class="row"><span>trust</span><div class="bar tw"><i style="width:41%"></i></div><span>41%</span></div>
+              </div>
+              <span class="status open">split · trust axis dissenting</span>
+            </div>
+            <div class="prop">
+              <span class="id">gcp-044</span>
+              <h5>ratify attestation schema v2 (revocation windows)</h5>
+              <div class="dual">
+                <div class="row"><span>gtc</span><div class="bar gtc"><i style="width:33%"></i></div><span>33%</span></div>
+                <div class="row"><span>trust</span><div class="bar tw"><i style="width:79%"></i></div><span>79%</span></div>
+              </div>
+              <span class="status open">open · 4 days left</span>
+            </div>
+          </div>
+          <div class="graphpane">
+            <span class="k">your neighborhood of the graph</span>
+            <svg viewBox="0 0 300 230" fill="none">
+              <path d="M150 115 L80 60 M150 115 L220 55 M150 115 L60 160 M150 115 L235 150 M150 115 L150 205 M80 60 L220 55 M60 160 L150 205 M220 55 L235 150" stroke="#3a3f63" stroke-width="1"/>
+              <path d="M80 60 L30 30 M220 55 L268 25 M235 150 L275 195 M60 160 L22 200" stroke="#2a2f45" stroke-width="1"/>
+              <circle cx="150" cy="115" r="11" fill="#a5b4fc"/>
+              <circle cx="80" cy="60" r="7" fill="#7c8cf0"/>
+              <circle cx="220" cy="55" r="8" fill="#7c8cf0"/>
+              <circle cx="60" cy="160" r="6" fill="#5b689f"/>
+              <circle cx="235" cy="150" r="7" fill="#5b689f"/>
+              <circle cx="150" cy="205" r="5" fill="#5b689f"/>
+              <circle cx="30" cy="30" r="3.5" fill="#3a3f63"/>
+              <circle cx="268" cy="25" r="3.5" fill="#3a3f63"/>
+              <circle cx="275" cy="195" r="3.5" fill="#3a3f63"/>
+              <circle cx="22" cy="200" r="3.5" fill="#3a3f63"/>
+              <text x="150" y="98" text-anchor="middle" fill="#e9e6da" font-family="ui-monospace,monospace" font-size="10">you</text>
+            </svg>
+            <p class="note">node size = earned trust weight. attestations decay without renewal, so the graph stays alive and current.</p>
+          </div>
+        </div>
+      </div>
+      <p class="footnote-sm">mock data. built on ethereum attestations (eas), fully open source, and portable: any dao can point trustgraph at its own token.</p>
+    </div>
+  </section>
+
+  <section class="cta-final" id="trust-cta">
+    <div class="wrap">
+      <span class="mono eyebrow">for gtc holders</span>
+      <h2>capital and credibility, both on the record.</h2>
+      <p class="sub">the proposed pilot starts with gtc governance. get attested, delegate along trust lines you actually believe in, and help tune the mechanism in the open.</p>
+      <div class="ctas">
+        <a class="btn lilac-solid" href="https://t.me/+YDJcJMtgxjA3ZmQ5" target="_blank" rel="noopener">join the telegram</a>
+        <a class="btn" href="#/fund">see how trust powers funding →</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= IMPACT ================= -->
+<main data-view="impact" class="fund-theme">
+  <header class="apphero" id="impact-hero">
+    <div class="wrap">
+      <a class="backlink mono" href="#/">← ethereum extitutional</a><br>
+      <span class="mono eyebrow">gitcoin impact · 2019 → today</span>
+      <h1>the receipts.</h1>
+      <p class="lede">ethereum extitutional runs on gitcoin 3.0. before this site existed, gitcoin spent 7 years proving that community capital allocation works at scale: $60M+ moved, 5 million donations, 3,715 projects. this page is the record.</p>
+      <div class="ctas">
+        <a class="btn solid" href="https://t.me/+YDJcJMtgxjA3ZmQ5" target="_blank" rel="noopener">join the telegram</a>
+        <a class="btn" href="https://gitcoin.co/impact" target="_blank" rel="noopener">source: gitcoin.co/impact</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="block" id="impact-stats">
+    <div class="wrap">
+      <span class="mono eyebrow">by the numbers</span>
+      <h2>seven years of quadratic funding, measured.</h2>
+      <div class="bigstats">
+        <div class="bigstat"><div class="v">$60m+</div><div class="k">funding distributed</div></div>
+        <div class="bigstat"><div class="v">5m+</div><div class="k">unique donations</div></div>
+        <div class="bigstat"><div class="v">270k</div><div class="k">unique supporters</div></div>
+        <div class="bigstat"><div class="v">3,715</div><div class="k">projects funded</div></div>
+        <div class="bigstat"><div class="v">230+</div><div class="k">funding rounds</div></div>
+        <div class="bigstat"><div class="v">$28.2b</div><div class="k">grantee market cap today</div></div>
+        <div class="bigstat"><div class="v">$3m+</div><div class="k">fraud prevented</div></div>
+        <div class="bigstat"><div class="v">2019</div><div class="k">year one of the experiment</div></div>
+      </div>
+      <div class="growth">
+        <div class="gbar"><span class="gv">$0.7m</span><i style="height:5%"></i><span class="gy">2019</span></div>
+        <div class="gbar"><span class="gv">$2.8m</span><i style="height:14%"></i><span class="gy">2020</span></div>
+        <div class="gbar"><span class="gv">$13.2m</span><i style="height:60%"></i><span class="gy">2021</span></div>
+        <div class="gbar"><span class="gv">$21.4m</span><i style="height:96%"></i><span class="gy">2022</span></div>
+      </div>
+      <p class="growth-cap">annual funding distributed, the growth years</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <span class="mono eyebrow">case studies</span>
+      <h2>small checks, outsized futures.</h2>
+      <div class="cases">
+        <div class="case">
+          <span class="cat">layer 2</span>
+          <h4>optimism</h4>
+          <p>quadratic funding sustained the early plasma research team before there was a token, a business model, or a name. that research became <b>one of ethereum's leading L2s</b>.</p>
+        </div>
+        <div class="case">
+          <span class="cat">defi</span>
+          <h4>1inch</h4>
+          <p>a <b>$50k grant</b> carried the co-founders from hackathon tables to a dex aggregator that has cleared <b>$250b+ in trading volume</b>.</p>
+        </div>
+        <div class="case">
+          <span class="cat">core protocol</span>
+          <h4>eip-1559</h4>
+          <p>the community crowdfunded the implementation of ethereum's fee-burning upgrade. gitcoin grants paid for core protocol work the market wouldn't fund on its own.</p>
+        </div>
+        <div class="case">
+          <span class="cat">builders</span>
+          <h4>austin griffith</h4>
+          <p>grants income let one developer quit his job and build onboarding tools (scaffold-eth, buidlguidl) that pulled <b>thousands of developers</b> into ethereum.</p>
+        </div>
+        <div class="case">
+          <span class="cat">policy</span>
+          <h4>coin center</h4>
+          <p>community-backed funding for the policy shop defending crypto in washington and in court. advocacy as a public good, funded like one.</p>
+        </div>
+        <div class="case">
+          <span class="cat">regen</span>
+          <h4>shamba network</h4>
+          <p>equipping smallholder farmers to conserve ecosystems. climate impact on the ground, funded by strangers on the internet through quadratic magic.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <span class="mono eyebrow">what people said</span>
+      <div class="quotes">
+        <blockquote class="pull">"all donors to the gitcoin matching pool deserve to get big beautiful statues."<span class="who">vitalik buterin · 2022</span></blockquote>
+        <blockquote class="pull">"work should be paid, and work made in the open should even be paid more."<span class="who">lefteris karapetsas · rotki</span></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-final" id="impact-cta">
+    <div class="wrap">
+      <span class="mono eyebrow">what's next</span>
+      <h2>the next decade of receipts gets written at the app layer.</h2>
+      <p class="sub">fund and trust are the same playbook, rebuilt for ethereum's extitutions. be early to round one.</p>
+      <div class="ctas">
+        <a class="btn solid" href="https://t.me/+YDJcJMtgxjA3ZmQ5" target="_blank" rel="noopener">join the telegram</a>
+        <a class="btn" href="#/fund">see the apps</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= MYCOFI ================= -->
+<main data-view="mycofi" class="fund-theme">
+  <header class="apphero" id="mycofi-hero">
+    <div class="wrap">
+      <a class="backlink mono" href="#/">← ethereum extitutional</a><br>
+      <span class="mono eyebrow">mycofi · mycelial finance</span>
+      <h1>economics, designed like fungus.</h1>
+      <p class="lede">mycofi explores mycoeconomics: economic systems inspired by the intelligence of fungal networks. finance built on cooperation, mutual aid, and nature's own resource allocation algorithms. it's the intellectual root system this whole site grows from.</p>
+      <div class="ctas">
+        <a class="btn solid" href="https://book.mycofi.earth" target="_blank" rel="noopener">read the book</a>
+        <a class="btn" href="https://mycofi.earth" target="_blank" rel="noopener">mycofi.earth</a>
+        <a class="btn" href="https://shop.mycofi.earth" target="_blank" rel="noopener">buy a copy</a>
+      </div>
+      <p class="legalnote">by <b>jeff emmett &amp; jessica zartler</b> · foreword by scott morris · published by <b>greenpill network</b> · 2024</p>
+    </div>
+  </header>
+
+  <section class="block" id="mycofi-ideas">
+    <div class="wrap">
+      <span class="mono eyebrow">the concepts</span>
+      <h2>four spores.</h2>
+      <div class="cases four">
+        <div class="case">
+          <span class="cat">money</span>
+          <h4>permaculture currencies</h4>
+          <p>from currency monocultures to diverse, resilient <b>permaculture currencies</b>: multi-dimensional money representing localized forms of value, for groups that prioritize cooperation and mutual aid.</p>
+        </div>
+        <div class="case">
+          <span class="cat">metabolism</span>
+          <h4>compost capitalism</h4>
+          <p>transforming extractive economic structures into <b>nourishment for regenerative systems</b>. the old economy becomes soil.</p>
+        </div>
+        <div class="case">
+          <span class="cat">coordination</span>
+          <h4>psilocybernetics</h4>
+          <p>mycelial wisdom converging with cybernetic systems thinking: <b>feedback loops for collective coordination</b>, tuned the way a forest tunes itself.</p>
+        </div>
+        <div class="case">
+          <span class="cat">ethos</span>
+          <h4>mycopunk principles</h4>
+          <p>the design stance underneath it all:</p>
+          <div class="chips">
+            <span class="chip">regenerative</span><span class="chip">redistributive</span><span class="chip">networked</span><span class="chip">humble</span><span class="chip">anti-fragile</span><span class="chip">fractal</span><span class="chip">mutualist</span><span class="chip">emergent</span><span class="chip">polycentric</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <span class="mono eyebrow">why it's here</span>
+      <h2>the book is the root system. the apps are the fruiting bodies.</h2>
+      <p class="sub">fund is a mycorrhizal network for capital: many small nutrient flows, routed to where the ecosystem says they matter. trust is chemical signaling: reputation flowing through a living web. mycofi wrote the patterns. ethereum extitutional grows them onchain.</p>
+      <div class="ctas">
+        <a class="btn" href="#/fund">fund →</a>
+        <a class="btn" href="#/trust">trust →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-final" id="mycofi-cta">
+    <div class="wrap">
+      <span class="mono eyebrow">homework</span>
+      <h2>read it, then come build with us.</h2>
+      <div class="ctas">
+        <a class="btn solid" href="https://book.mycofi.earth" target="_blank" rel="noopener">read the book</a>
+        <a class="btn" href="https://t.me/+YDJcJMtgxjA3ZmQ5" target="_blank" rel="noopener">join the telegram</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- global: impact band + footer, on every view -->
+<section class="impactband" id="impactband">
+  <div class="wrap">
+    <span class="mono eyebrow">powered by gitcoin · the receipts</span>
+    <h2>this playbook already moved $60,000,000.</h2>
+    <div class="ib-stats">
+      <div class="ib-stat"><div class="v">$60m+</div><div class="k">funding distributed</div></div>
+      <div class="ib-stat"><div class="v">5m+</div><div class="k">unique donations</div></div>
+      <div class="ib-stat"><div class="v">3,715</div><div class="k">projects funded</div></div>
+      <div class="ib-stat"><div class="v">270k</div><div class="k">unique supporters</div></div>
+    </div>
+    <p class="ib-note">gitcoin grants took 1inch from a hackathon table to $250b+ in volume, funded optimism's research before it had a name, and paid for eip-1559. quadratic funding works. there's a decade of receipts.</p>
+    <a class="ib-link" href="#/impact">see the impact →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><span class="shroom footmark" data-size="15" aria-hidden="true"></span>ethereum extitutional is an independent nonprofit growing open, networked coordination at ethereum's app layer. grown, not incorporated. 2026.</p>
+    <div class="fl">
+      <a href="#/fund">fund</a>
+      <a href="#/trust">trust</a>
+      <a href="#/impact">impact</a>
+      <a href="#/mycofi">mycofi</a>
+      <a href="https://t.me/+YDJcJMtgxjA3ZmQ5" target="_blank" rel="noopener">telegram</a>
+      <a href="https://gitcoin.co" target="_blank" rel="noopener">powered by gitcoin 3.0</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // hash router
+  const views = document.querySelectorAll('[data-view]');
+  const navLinks = document.querySelectorAll('[data-nav]');
+  function route(){
+    const h = location.hash || '#/';
+    let v = 'home';
+    if (h.startsWith('#/fund')) v = 'fund';
+    else if (h.startsWith('#/trust')) v = 'trust';
+    else if (h.startsWith('#/impact')) v = 'impact';
+    else if (h.startsWith('#/mycofi')) v = 'mycofi';
+    views.forEach(el => el.classList.toggle('on', el.dataset.view === v));
+    navLinks.forEach(a => a.classList.toggle('active', a.dataset.nav === v));
+    const band = document.getElementById('impactband');
+    if (band) band.style.display = v === 'impact' ? 'none' : '';
+    window.scrollTo(0,0);
+    if (v === 'home') startNet();
+  }
+  window.addEventListener('hashchange', route);
+  function goApps(e){ e.preventDefault(); document.getElementById('apps').scrollIntoView({behavior:'smooth'}); }
+  function goIdea(e){ e.preventDefault(); document.getElementById('idea').scrollIntoView({behavior:'smooth'}); }
+
+  // hero mycelium animation: hyphae grow inward from the edges,
+  // branching as they go, leaving a slowly-accumulating web.
+  let netStarted = false, netInit = null;
+  function startNet(){
+    if (netStarted){ const c = document.getElementById('net'); if (!c.width && netInit) netInit(); return; }
+    netStarted = true;
+    const c = document.getElementById('net');
+    const ctx = c.getContext('2d');
+    const sc = document.getElementById('sporeC');
+    const sctx = sc.getContext('2d');
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const TAU = Math.PI*2;
+    let W, H, tips, spores, pulses = [], eeNodes = [];
+    const MAX_TIPS = 190;
+    const eth = {x:0, y:0, s:0};   // primary epicenter: the glyph, woven into the mat
+    const hubs = [];               // named epicenters, eth included
+
+    function seed(){
+      // hyphae sprout from the epicenters themselves: power flowing outward
+      if (hubs.length && Math.random() < .35){
+        const hb = hubs[Math.floor(Math.random()*hubs.length)];
+        const a = Math.random()*Math.PI*2;
+        tips.push({x:hb.x+Math.cos(a)*hb.rad*.4, y:hb.y+Math.sin(a)*hb.rad*.4, a,
+                   age:0, max:400+Math.random()*600,
+                   speed:(Math.random()*.55+.45)*dpr, w:Math.random()*.95+.5});
+        return;
+      }
+      const side = Math.floor(Math.random()*4);
+      let x, y, a;
+      if (side===0){ x=Math.random()*W; y=H+4; a=-Math.PI/2; }        // bottom, growing up
+      else if (side===1){ x=Math.random()*W; y=-4; a=Math.PI/2; }     // top, growing down
+      else if (side===2){ x=-4; y=Math.random()*H; a=0; }             // left, growing right
+      else { x=W+4; y=Math.random()*H; a=Math.PI; }                   // right, growing left
+      tips.push({x, y, a, age:0, max:600+Math.random()*900,
+                 speed:(Math.random()*.55+.45)*dpr, w:Math.random()*.95+.5});
+    }
+
+    let t = 0;
+    function step(fade){
+      t++;
+      // very slow decay so the mat stays but keeps breathing
+      if (fade && t % 3 === 0){ ctx.fillStyle = 'rgba(10,12,8,0.01)'; ctx.fillRect(0,0,W,H); }
+
+      for (let i = tips.length-1; i >= 0; i--){
+        const p = tips[i];
+        const ox = p.x, oy = p.y;
+        p.a += (Math.random()-.5)*.42;                 // wander: organic curvature
+        // near any epicenter, threads bend to wrap around it: enmeshed, not covered
+        for (const hb of hubs){
+          const dx = hb.x-p.x, dy = hb.y-p.y, d = Math.hypot(dx,dy);
+          if (d < hb.rad && d > 1){
+            const tang = Math.atan2(dy,dx) + Math.PI/2;
+            const diff = ((tang - p.a + Math.PI*3) % (Math.PI*2)) - Math.PI;
+            p.a += diff*.07;
+            break;
+          }
+        }
+        p.x += Math.cos(p.a)*p.speed;
+        p.y += Math.sin(p.a)*p.speed;
+        p.age++;
+        ctx.strokeStyle = `rgba(184,240,92,${.34*p.w})`;
+        ctx.lineWidth = p.w*dpr*.9;
+        ctx.beginPath(); ctx.moveTo(ox,oy); ctx.lineTo(p.x,p.y); ctx.stroke();
+        // branch: a node forms and a new hypha splits off
+        if (Math.random() < .014 && tips.length < MAX_TIPS){
+          tips.push({x:p.x, y:p.y, a:p.a+(Math.random()<.5?-1:1)*(.5+Math.random()*.7),
+                     age:0, max:p.max*.7, speed:p.speed*.96, w:p.w*.85});
+          ctx.fillStyle = 'rgba(184,240,92,.5)';
+          ctx.beginPath(); ctx.arc(p.x,p.y,1.4*dpr,0,TAU); ctx.fill();
+        }
+        if (p.age > p.max || p.x<-30 || p.x>W+30 || p.y<-30 || p.y>H+30) tips.splice(i,1);
+      }
+      if (tips.length < 40 && Math.random() < .3) seed();
+    }
+
+    function init(){
+      if (!c.offsetWidth) return;
+      W = c.width = c.offsetWidth*dpr;
+      H = c.height = c.offsetHeight*dpr;
+      sc.width = W; sc.height = H;
+      eth.x = W*.68; eth.y = H*.48; eth.s = H*.15;
+      hubs.length = 0;
+      hubs.push({x:eth.x, y:eth.y, rad:eth.s*2.1, label:'ethereum'});
+      hubs.push({x:W*.34, y:H*.86, rad:76*dpr, label:'gitcoin'});
+      hubs.push({x:W*.51, y:H*.15, rad:66*dpr, label:'fund'});
+      hubs.push({x:W*.91, y:H*.76, rad:66*dpr, label:'trust'});
+      hubs.push({x:W*.06, y:H*.6, rad:60*dpr, label:'mycofi'});
+      // extitutional seedlings: litter of small nodes that grow into routing points
+      eeNodes = Array.from({length:14}, () => ({
+        x: Math.random()*W, y: Math.random()*H,
+        r: .8+Math.random()*.8, max: 3+Math.random()*2.5,
+        rate: (.0005+Math.random()*.001)*dpr, ph: Math.random()*TAU
+      }));
+      pulses = [];
+      ctx.fillStyle = '#0a0c08';
+      ctx.fillRect(0,0,W,H);
+      tips = [];
+      for (let i=0;i<22;i++) seed();
+      spores = Array.from({length:42}, () => ({
+        x:Math.random()*W, y:Math.random()*H,
+        r:(Math.random()*1.3+.4)*dpr,
+        v:(Math.random()*.14+.04)*dpr,
+        tw:Math.random()*TAU
+      }));
+      // pre-grow the mat so the fold opens onto a living web (no decay while growing)
+      for (let i=0;i<900;i++) step(false);
+    }
+    netInit = init;
+    window.addEventListener('resize', init);
+    init();
+
+    (function tick(){
+      requestAnimationFrame(tick);
+      if (!W || !document.querySelector('[data-view="home"]').classList.contains('on')) return;
+      step(true);
+      // glowing growth tips
+      for (const p of tips){
+        ctx.fillStyle = `rgba(216,255,150,${.45*p.w})`;
+        ctx.beginPath(); ctx.arc(p.x,p.y,.9*dpr,0,TAU); ctx.fill();
+      }
+
+      // spores drifting up, twinkling (own layer so they don't smear)
+      sctx.clearRect(0,0,W,H);
+      for (const s of spores){
+        s.y -= s.v; s.tw += .03;
+        if (s.y < -4){ s.y = H+4; s.x = Math.random()*W; }
+        sctx.fillStyle = `rgba(184,240,92,${.22+.2*Math.sin(s.tw)})`;
+        sctx.beginPath(); sctx.arc(s.x,s.y,s.r,0,TAU); sctx.fill();
+      }
+      // extitutional seedlings: grow slowly into glowing routing points
+      for (const n of eeNodes){
+        if (n.r < n.max) n.r += n.rate;
+        const tw = .35 + .15*Math.sin(t*.03 + n.ph);
+        sctx.fillStyle = `rgba(184,240,92,${tw*.3})`;
+        sctx.beginPath(); sctx.arc(n.x, n.y, n.r*3*dpr, 0, TAU); sctx.fill();
+        sctx.fillStyle = `rgba(216,255,150,${tw+.25})`;
+        sctx.beginPath(); sctx.arc(n.x, n.y, n.r*dpr, 0, TAU); sctx.fill();
+      }
+      // energy transfer: pulses travel between epicenters and grown routing points
+      if (t % 14 === 0 && pulses.length < 12){
+        const pool = hubs.concat(eeNodes.filter(n => n.r > 2.2));
+        const A = pool[Math.floor(Math.random()*pool.length)];
+        const B = pool[Math.floor(Math.random()*pool.length)];
+        if (A !== B) pulses.push({
+          ax:A.x, ay:A.y, bx:B.x, by:B.y,
+          mx:(A.x+B.x)/2 + (Math.random()-.5)*130*dpr,
+          my:(A.y+B.y)/2 + (Math.random()-.5)*130*dpr,
+          t:0, dur:110+Math.random()*70
+        });
+      }
+      for (let i=pulses.length-1;i>=0;i--){
+        const pu = pulses[i]; pu.t++;
+        const e = pu.t/pu.dur;
+        if (e >= 1){ pulses.splice(i,1); continue; }
+        for (let k=0;k<3;k++){                       // dot + fading tail
+          const ee = Math.max(0, e - k*.022);
+          const u = 1-ee;
+          sctx.fillStyle = `rgba(216,255,150,${(.65-k*.2)*Math.sin(Math.PI*e)})`;
+          sctx.beginPath();
+          sctx.arc(u*u*pu.ax + 2*u*ee*pu.mx + ee*ee*pu.bx,
+                   u*u*pu.ay + 2*u*ee*pu.my + ee*ee*pu.by, (1.8-k*.4)*dpr, 0, TAU);
+          sctx.fill();
+        }
+      }
+      // epicenter cores + names
+      sctx.font = `${10*dpr}px ui-monospace, SFMono-Regular, Menlo, monospace`;
+      sctx.textAlign = 'center';
+      for (const hb of hubs){
+        if (hb.label === 'ethereum'){
+          sctx.fillStyle = 'rgba(216,255,150,.38)';
+          sctx.fillText(hb.label, hb.x, hb.y + eth.s*1.32);
+          continue;
+        }
+        const tw = .5 + .2*Math.sin(t*.025 + hb.x);
+        sctx.fillStyle = `rgba(184,240,92,${tw*.22})`;
+        sctx.beginPath(); sctx.arc(hb.x, hb.y, 13*dpr, 0, TAU); sctx.fill();
+        sctx.fillStyle = `rgba(216,255,150,${tw+.3})`;
+        sctx.beginPath(); sctx.arc(hb.x, hb.y, 3.2*dpr, 0, TAU); sctx.fill();
+        sctx.fillStyle = 'rgba(184,240,92,.5)';
+        sctx.fillText(hb.label, hb.x, hb.y + 22*dpr);
+      }
+      drawEth();
+    })();
+
+    // the eth glyph: faint, breathing, part of the web rather than on top of it
+    function drawEth(){
+      if (!eth.s) return;
+      const UP = [[0,-1],[.61,.2],[0,.52],[-.61,.2]];
+      const LO = [[-.61,.32],[0,1],[.61,.32],[0,.6]];
+      const br = .2 + .08*Math.sin(t*.02);
+      sctx.save();
+      sctx.translate(eth.x, eth.y);
+      sctx.scale(eth.s, eth.s);
+      sctx.lineJoin = 'round';
+      for (const [lw, al] of [[9/eth.s, .05], [2*dpr/eth.s, br]]){
+        sctx.strokeStyle = `rgba(216,255,150,${al})`;
+        sctx.lineWidth = lw;
+        sctx.beginPath();
+        sctx.moveTo(UP[0][0],UP[0][1]); for (const q of UP.slice(1)) sctx.lineTo(q[0],q[1]); sctx.closePath();
+        sctx.moveTo(LO[0][0],LO[0][1]); for (const q of LO.slice(1)) sctx.lineTo(q[0],q[1]); sctx.closePath();
+        sctx.moveTo(0,-1); sctx.lineTo(0,.52);
+        sctx.stroke();
+      }
+      sctx.restore();
+    }
+  }
+  route();
+
+  // the mark: one svg template, injected wherever .shroom appears.
+  // gradient-lit cap, mycelium roots that grow on hover, spores that rise.
+  let shroomN = 0;
+  function shroomSVG(s){
+    const u = 'sh' + (shroomN++);
+    return `<svg width="${s}" height="${Math.round(s*1.25)}" viewBox="0 0 48 60" fill="none" aria-hidden="true">
+      <defs>
+        <radialGradient id="${u}c" cx="35%" cy="20%" r="100%">
+          <stop offset="0%" stop-color="#f4ffd0"/>
+          <stop offset="32%" stop-color="#d3fb84"/>
+          <stop offset="68%" stop-color="#a5df51"/>
+          <stop offset="100%" stop-color="#79ab3a"/>
+        </radialGradient>
+        <linearGradient id="${u}s" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e6f5bd"/>
+          <stop offset="100%" stop-color="#b5d878"/>
+        </linearGradient>
+      </defs>
+      <circle class="spore" cx="9" cy="8" r="1.3" fill="#d8ff96"/>
+      <circle class="spore" cx="24" cy="1" r="1.6" fill="#d8ff96"/>
+      <circle class="spore" cx="39" cy="6" r="1.1" fill="#d8ff96"/>
+      <path d="M4.2 25.5C6 12.5 14.5 4.5 24 4.5s18 8 19.8 21c.4 2.8-1.9 5-4.7 5H8.9c-2.8 0-5.1-2.2-4.7-5z" fill="url(#${u}c)"/>
+      <path d="M8.9 30.5c9.8 4.6 20.4 4.6 30.2 0" stroke="#6f9a35" stroke-width="1.4" opacity=".55"/>
+      <ellipse cx="14.5" cy="13.5" rx="3.4" ry="2" fill="#f7ffde" opacity=".85" transform="rotate(-18 14.5 13.5)"/>
+      <ellipse cx="29" cy="9.5" rx="2.6" ry="1.6" fill="#f7ffde" opacity=".7"/>
+      <ellipse cx="36.5" cy="18.5" rx="2.2" ry="1.4" fill="#f7ffde" opacity=".6" transform="rotate(14 36.5 18.5)"/>
+      <path d="M19.2 30.5c-.6 6.4-.4 11.2 1 15.6.4 1.4 1.6 2.4 3 2.4h1.6c1.4 0 2.6-1 3-2.4 1.4-4.4 1.6-9.2 1-15.6z" fill="url(#${u}s)"/>
+      <g stroke="#b8f05c" stroke-width="1.4" stroke-linecap="round">
+        <path class="root" d="M22.5 48.5c-1.5 3-4 5.2-8.5 6.3"/>
+        <path class="root" d="M14 54.8c-2.4.6-4.8.4-7-.6"/>
+        <path class="root" d="M25.5 48.5c1.5 3 4 5.2 8.5 6.3"/>
+        <path class="root" d="M34 54.8c2.4.6 4.8.4 7-.6"/>
+        <path class="root" d="M24 49c.2 3.4 1 6.4 3 9"/>
+        <path class="root" d="M24 49c-.6 3.8-2.4 7-5.5 9.6"/>
+      </g>
+    </svg>`;
+  }
+  document.querySelectorAll('.shroom').forEach(el => { el.innerHTML = shroomSVG(+el.dataset.size || 20); });
+
+  // section networks: each landing section gets its own topology.
+  // nodes scatter randomly, then assemble into structure when the
+  // section scrolls into view. the network literally organizes as you go.
+  const NETS = [];
+  const COL = {lm:'184,240,92', li:'165,180,252'};
+  const easeOut = x => 1 - Math.pow(1-x, 3);
+
+  function makeNet(secId, build){
+    const sec = document.getElementById(secId);
+    if (!sec) return;
+    const cv = document.createElement('canvas');
+    cv.className = 'netbg';
+    sec.prepend(cv);
+    NETS.push({sec, cv, ctx:cv.getContext('2d'), build, spec:null, nodes:[], t:Math.random()*10, prog:0, seen:false, visible:false});
+  }
+
+  function layoutNet(net){
+    const w = net.sec.offsetWidth, h = net.sec.offsetHeight;
+    if (!w || !h) return;
+    const d = Math.min(devicePixelRatio||1, 2);
+    net.dpr = d; net.w = w; net.h = h;
+    net.cv.width = w*d; net.cv.height = h*d;
+    net.spec = net.build(w, h);
+    net.nodes = net.spec.nodes.map(n => ({
+      ...n,
+      sx: net.seen ? n.x : Math.random()*w,
+      sy: net.seen ? n.y : Math.random()*h,
+      ph: Math.random()*Math.PI*2,
+      delay: Math.random()*.4
+    }));
+  }
+
+  function layoutAll(){ for (const net of NETS){ layoutNet(net); net.dirty = true; } }
+
+  // -- topology 1: the idea. rigid hierarchy (institution) vs organic mesh (extitution)
+  function buildIdea(w, h){
+    const nodes = [], edges = [];
+    const rx = w*.09;
+    nodes.push({x:rx, y:h*.14, c:'li', r:3.4, al:.7});
+    for (let i=0;i<3;i++) nodes.push({x:rx+(i-1)*w*.052, y:h*.4, c:'li', r:2.6, al:.55});
+    for (let i=0;i<6;i++) nodes.push({x:rx+(i-2.5)*w*.031, y:h*.68, c:'li', r:2, al:.4});
+    for (let i=0;i<3;i++) edges.push([0, 1+i, 'li', .3, 'o']);
+    for (let i=0;i<6;i++) edges.push([1+Math.floor(i/2), 4+i, 'li', .3, 'o']);
+    const mesh = [];
+    for (let i=0;i<16;i++){
+      mesh.push(nodes.length);
+      nodes.push({x:w*(.74+Math.random()*.22), y:h*(.06+Math.random()*.88), c:'lm', r:Math.random()*1.8+1.3, al:.6});
+    }
+    for (const i of mesh){
+      const a = nodes[i];
+      const near = mesh.filter(j=>j!==i)
+        .sort((p,q)=>Math.hypot(nodes[p].x-a.x,nodes[p].y-a.y)-Math.hypot(nodes[q].x-a.x,nodes[q].y-a.y))
+        .slice(0,2);
+      for (const j of near) edges.push([i, j, 'lm', .22, 'c']);
+    }
+    return {nodes, edges};
+  }
+
+  // -- topology 5: quadratic funding. a gitcoin-round hairball: clouds of tiny
+  //    donors clustered around project hubs, cross-links where donors back several
+  function buildBipartite(w, h){
+    const nodes = [], edges = [];
+    const projects = [];
+    const P = 9;
+    for (let i=0;i<P;i++){
+      projects.push(nodes.length);
+      nodes.push({x:w*(.5+Math.random()*.46), y:h*(.1+Math.random()*.8), c:'lm', r:2.8+Math.random()*3, al:.85, birth:.02+(i/P)*.12});
+    }
+    for (let i=0;i<190;i++){
+      const pi = projects[Math.floor(Math.pow(Math.random(),1.6)*P)]; // popular projects pull bigger crowds
+      const hub = nodes[pi];
+      const ang = Math.random()*Math.PI*2;
+      const rad = Math.pow(Math.random(),.6)*Math.min(w*.09,115) + 9;
+      const di = nodes.length;
+      // donations accelerate toward round close: arrivals skew late, density compounds
+      const birth = Math.max(nodes[pi].birth+.02, .1 + .8*Math.pow(Math.random(), .7));
+      nodes.push({x:hub.x+Math.cos(ang)*rad, y:hub.y+Math.sin(ang)*rad*.85, c:'lm', r:Math.random()*.8+.6, al:.5, birth});
+      edges.push([di, pi, 'lm', .1, 0, birth+.005]);
+      if (Math.random()<.14){
+        const p2 = projects[Math.floor(Math.random()*P)];
+        if (p2!==pi) edges.push([di, p2, 'lm', .05, 'c', Math.min(.96, Math.max(birth, .6+.36*Math.random()))]);
+      }
+    }
+    return {nodes, edges, growth:{period:16}};
+  }
+
+  // -- topology 6: web of trust, grown over time. members arrive, attest to
+  //    the people already there, attestations keep landing between old members,
+  //    and the graph compounds to full density before the loop resets
+  function buildTrustGrowth(w, h, col){
+    const nodes = [], edges = [];
+    const N = 85;
+    const cx = w*.74, cy = h*.5;
+    for (let i=0;i<N;i++){
+      const birth = (i/N)*.8;               // arrivals span the first 80% of the loop
+      const early = 1 - i/N;                // og members earn size + brightness
+      const spread = .25 + (i/N)*.75;       // later joiners land further out
+      nodes.push({
+        x: cx + (Math.random()-.5)*w*.46*spread,
+        y: cy + (Math.random()-.5)*h*.92*spread,
+        c:col||'li', r: 1.1 + early*3.2, al: .35 + early*.45, birth
+      });
+      if (i>0){
+        const k = 2 + (Math.random()<.4?1:0);
+        for (let m=0;m<k;m++){
+          const j = Math.floor(Math.pow(Math.random(),2.2)*i);  // preferential: vouch for the established
+          edges.push([i, j, col||'li', .15, Math.random()<.5?'c':0, birth+.01]);
+        }
+      }
+    }
+    for (let m=0;m<180;m++){                // late attestation waves between existing members
+      const i = Math.floor(Math.random()*N), j = Math.floor(Math.random()*N);
+      if (i===j) continue;
+      const b0 = Math.max(nodes[i].birth, nodes[j].birth);
+      edges.push([i, j, col||'li', .09, 'c', Math.min(.97, b0 + (1-b0)*Math.pow(Math.random(),.7))]);
+    }
+    return {nodes, edges, growth:{period:16}};
+  }
+
+  // -- topology 2: the map. orthogonal lattice, graph-paper order
+  function buildMap(w, h, col){
+    const nodes = [], edges = [];
+    const cols = Math.max(9, Math.round(w/150)), rows = 6;
+    const idx = {};
+    for (let r=0;r<rows;r++){
+      for (let c=0;c<cols;c++){
+        if (Math.random() < .14) continue;
+        idx[r+'_'+c] = nodes.length;
+        const big = Math.random() < .08;
+        nodes.push({
+          x: w*.03 + (c/(cols-1))*w*.94 + (Math.random()-.5)*8,
+          y: h*.06 + (r/(rows-1))*h*.88 + (Math.random()-.5)*8,
+          c: col||'lm', r: big?2.8:1.5, al: big?.6:.3
+        });
+      }
+    }
+    for (let r=0;r<rows;r++) for (let c=0;c<cols;c++){
+      const a = idx[r+'_'+c];
+      if (a===undefined) continue;
+      const rt = idx[r+'_'+(c+1)], dn = idx[(r+1)+'_'+c];
+      if (rt!==undefined) edges.push([a, rt, col||'lm', .09]);
+      if (dn!==undefined) edges.push([a, dn, col||'lm', .09]);
+    }
+    return {nodes, edges};
+  }
+
+  // -- topology 3: the apps. two radial hubs, one mycelial bridge underneath
+  function buildApps(w, h){
+    const nodes = [], edges = [];
+    const hubs = [{x:w*.27, y:h*.56, c:'lm'}, {x:w*.73, y:h*.56, c:'li'}];
+    for (const hb of hubs){
+      const hi = nodes.length;
+      nodes.push({x:hb.x, y:hb.y, c:hb.c, r:4, al:.75});
+      for (let i=0;i<13;i++){
+        const a = Math.random()*Math.PI*2;
+        const rad = Math.min(w*.11 + Math.random()*w*.12, h*.42);
+        nodes.push({x:hb.x+Math.cos(a)*rad, y:hb.y+Math.sin(a)*rad*.72, c:hb.c, r:Math.random()*1.6+1.2, al:.5});
+        edges.push([hi, nodes.length-1, hb.c, .2]);
+      }
+    }
+    const bridge = [0];
+    for (let i=1;i<6;i++){
+      bridge.push(nodes.length);
+      nodes.push({x:w*.27 + (w*.46)*(i/6), y:h*.9 - Math.sin(i/6*Math.PI)*h*.06, c:'lm', r:1.6, al:.4});
+    }
+    bridge.push(14);
+    for (let i=0;i<bridge.length-1;i++) edges.push([bridge[i], bridge[i+1], 'lm', .26, 'c']);
+    return {nodes, edges};
+  }
+
+  // -- topology 4: principles. a slowly rotating ring, chords across
+  function buildPrinciples(w, h, col){
+    const nodes = [], edges = [];
+    const cx = w*.5, cy = h*.54, R = Math.min(w*.37, h*.46);
+    const N = 20;
+    for (let i=0;i<N;i++){
+      nodes.push({x:cx, y:cy, c:col||'lm', r:i%5?1.7:2.6, al:i%5?.4:.65,
+                  orbit:{cx, cy, r:R, a:i/N*Math.PI*2, va:.05}});
+    }
+    for (let i=0;i<N;i++) edges.push([i, (i+1)%N, col||'lm', .18]);
+    for (let i=0;i<N;i+=2) edges.push([i, (i+8)%N, col||'lm', .07]);
+    return {nodes, edges};
+  }
+
+  makeNet('idea', buildIdea);
+  makeNet('map', buildMap);
+  makeNet('apps', buildApps);
+  makeNet('principles', buildPrinciples);
+  // fund page: donors converge on projects; lattice under the mock; lime ring on the close
+  makeNet('fund-hero', buildBipartite);
+  makeNet('round', (w,h) => buildMap(w,h,'lm'));
+  makeNet('fund-cta', (w,h) => buildPrinciples(w,h,'lm'));
+  // trust page: web of trust; lilac lattice under the mock; lilac ring on the close
+  makeNet('trust-hero', buildTrustGrowth);
+  makeNet('gov', (w,h) => buildMap(w,h,'li'));
+  makeNet('trust-cta', (w,h) => buildPrinciples(w,h,'li'));
+  // impact page: the funding hairball again, lattice under the stats, ring on the close
+  makeNet('impact-hero', buildBipartite);
+  makeNet('impact-stats', (w,h) => buildMap(w,h,'lm'));
+  makeNet('impact-cta', (w,h) => buildPrinciples(w,h,'lm'));
+  // mycofi page: a lime web growing over time, ring on the close
+  makeNet('mycofi-hero', (w,h) => buildTrustGrowth(w,h,'lm'));
+  makeNet('mycofi-cta', (w,h) => buildPrinciples(w,h,'lm'));
+  layoutAll();
+  window.addEventListener('resize', layoutAll);
+
+  const io = new IntersectionObserver(entries => {
+    for (const en of entries){
+      const net = NETS.find(n => n.sec === en.target);
+      if (!net) continue;
+      net.visible = en.isIntersecting;
+      if (en.isIntersecting){
+        net.seen = true;
+        if (!net.spec || !net.w) layoutNet(net);   // section was hidden (other view) at init
+      }
+    }
+  }, {threshold:.12});
+  for (const net of NETS) io.observe(net.sec);
+
+  (function drawNets(){
+    requestAnimationFrame(drawNets);
+    for (const net of NETS){
+      if (!net.spec) continue;
+      if (!net.visible && !net.dirty) continue;
+      net.dirty = false;
+      if (!net.cv.width) layoutNet(net);
+      net.t += 1/60;
+      if (net.seen && net.prog < 1) net.prog = Math.min(1, net.prog + .011);
+      // growth nets: birth-ordered reveal on a loop instead of scatter-assembly
+      let q = 1, gA = 1;
+      if (net.spec.growth){
+        net.prog = 1;
+        q = (net.t % net.spec.growth.period) / net.spec.growth.period;
+        if (net.lastQ !== undefined && q < net.lastQ) layoutNet(net); // loop reset: grow a fresh graph
+        net.lastQ = q;
+        gA = q > .92 ? Math.max(0, (1-q)/.08) : 1;                    // dissolve before regrowing
+      }
+      const {ctx, dpr} = net;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      ctx.clearRect(0,0,net.w,net.h);
+      for (const n of net.nodes){
+        let tx = n.x, ty = n.y;
+        if (n.orbit){
+          const o = n.orbit, a = o.a + net.t*o.va;
+          tx = o.cx + Math.cos(a)*o.r; ty = o.cy + Math.sin(a)*o.r*.8;
+        }
+        const p = easeOut(Math.max(0, Math.min(1, (net.prog - n.delay)/(1 - n.delay))));
+        n.px = n.sx + (tx-n.sx)*p + Math.sin(net.t*.8+n.ph)*2.4;
+        n.py = n.sy + (ty-n.sy)*p + Math.cos(net.t*.7+n.ph)*2.4;
+      }
+      for (const e of net.spec.edges){
+        const a = net.nodes[e[0]], b = net.nodes[e[1]];
+        let ef = 1;
+        if (net.spec.growth){
+          ef = Math.max(0, Math.min(1, (q-(e[5]||0))/.03)) * gA;
+          if (ef <= 0) continue;
+        }
+        ctx.strokeStyle = `rgba(${COL[e[2]]||COL.lm},${(e[3]??.15)*net.prog*ef})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        if (e[4]==='o'){
+          const my = (a.py+b.py)/2;
+          ctx.moveTo(a.px,a.py); ctx.lineTo(a.px,my); ctx.lineTo(b.px,my); ctx.lineTo(b.px,b.py);
+        } else if (e[4]==='c'){
+          ctx.moveTo(a.px,a.py);
+          ctx.quadraticCurveTo((a.px+b.px)/2+(a.ph-3)*7, (a.py+b.py)/2+(b.ph-3)*7, b.px, b.py);
+        } else {
+          ctx.moveTo(a.px,a.py); ctx.lineTo(b.px,b.py);
+        }
+        ctx.stroke();
+      }
+      for (const n of net.nodes){
+        let nf = 1;
+        if (net.spec.growth){
+          nf = Math.max(0, Math.min(1, (q-(n.birth||0))/.03)) * gA;
+          if (nf <= 0) continue;
+        }
+        ctx.fillStyle = `rgba(${COL[n.c]||COL.lm},${(n.al??.5)*net.prog*nf})`;
+        ctx.beginPath(); ctx.arc(n.px,n.py,(n.r||2)*(net.spec.growth?(.5+.5*nf):1),0,7); ctx.fill();
+      }
+    }
+  })();
+</script>
+</body>
+</html>
