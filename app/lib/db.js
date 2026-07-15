@@ -185,32 +185,21 @@ export const feedItems = (roundId, limit = 60) => all(`
     FROM updates u JOIN grants g ON g.id = u.grant_id WHERE g.round_id = $1
   ) t ORDER BY at DESC NULLS LAST LIMIT $2`, [roundId, limit]);
 
-/* ---------------- seed ---------------- */
+export async function updateRound(id, f) {
+  return q(`UPDATE rounds SET name=$1, description=$2, matching_pool_eth=$3, match_cap_fraction=$4,
+    min_donation_eth=$5, start_at=$6, end_at=$7, start_block=$8, end_block=$9 WHERE id=$10`,
+    [f.name, f.description, f.matching_pool_eth, f.match_cap_fraction,
+     f.min_donation_eth, f.start_at, f.end_at, f.start_block, f.end_block, id]);
+}
+export const resetCursor = roundId => q('DELETE FROM meta WHERE key=$1', ['cursor:' + roundId]);
+
+/* ---------------- seed ----------------
+   bootstrap only: one blank round so the app has something to render.
+   everything about it — and every grant — is managed from /admin. */
 export async function seedIfEmpty() {
   if (await activeRound()) return;
-  const startBlock = Number(process.env.SEED_START_BLOCK || 25537076);
-  const r = await one(`INSERT INTO rounds (slug, name, description, matching_pool_eth, match_cap_fraction, min_donation_eth, start_at, end_at, start_block)
-    VALUES ('extitutions-01', 'extitutions round 01',
-      $1, 5.0, 0.20, 0.001, '2026-07-15T00:00:00Z', '2026-08-15T00:00:00Z', $2)
-    RETURNING id`,
-    ["back the projects growing ethereum's open layer. every donation is an on-chain vote — the matching pool follows breadth of support, not depth of pockets.", startBlock]);
-  const roundId = r.id;
-  const seed = [
-    ['mycofi press', 'media · narrative', 'book-length and zine-length explainers of mycelial economics, free forever, translated by the network.',
-      'mycofi press publishes the ideas underneath this whole experiment.\n\n## what we do\n- keep **mycofi** free to read, forever\n- commission zine adaptations and translations\n- run reading groups for local nodes\n\n## why it matters\nnarrative is infrastructure. people fund what they can imagine.'],
-    ['trustgraph lab', 'protocol · governance', 'open tooling for trust-weighted coordination — the sybil resistance layer this round will one day run on.',
-      'trustgraph lab prototypes the trust layer.\n\n## roadmap\n- attestation schema for earned trust\n- COCM-style cluster matching reference implementation\n- integration hooks for future rounds'],
-    ['local nodes', 'community · irl', 'micro-grants and playbooks for city-level ethereum meetups that run their own local funding rounds.',
-      'local nodes seeds city-level rounds.\n\n## the playbook\neverything a city needs to run a $5k QF round in a weekend: eligibility templates, promo kits, payout checklists.'],
-    ['open round data', 'infra · transparency', 'dashboards and archives for every extitutional round — donations, matches, and fraud reports, forever public.',
-      'if the round is not auditable, it is not legitimate.\n\n## deliverables\n- per-round public archives\n- one-click "recompute the matches" notebooks'],
-    ['gentle onboarding', 'education · onboarding', 'no-crypto-knowledge-required guides that take a newcomer from a card payment to their first on-chain donation.',
-      'the next million donors will not arrive holding ETH.\n\n## what we ship\nstep-by-step guides, videos, and a hand-holding help desk during round weeks.'],
-    ['commons audit collective', 'security · commons', 'volunteer security reviews for the small open-source projects that big audit shops never get to.',
-      'security is a public good with a market failure at the small end.\n\n## how it works\nprojects apply, volunteer auditors triage, reports are published openly.'],
-  ];
-  for (const [name, category, tagline, mdSrc] of seed)
-    await q(`INSERT INTO grants (slug, round_id, name, tagline, description_md, category, status)
-      VALUES ($1,$2,$3,$4,$5,$6,'approved') ON CONFLICT (slug) DO NOTHING`,
-      [slugify(name), roundId, name, tagline, mdSrc, category]);
+  let startBlock = 0;
+  try { startBlock = await (await import('./chain.js')).latestBlock(); } catch { /* operator sets it in admin */ }
+  await q(`INSERT INTO rounds (slug, name, description, matching_pool_eth, match_cap_fraction, min_donation_eth, start_at, end_at, start_block)
+    VALUES ('round-01', 'round 01', '', 0, 0.20, 0.001, now(), now() + interval '30 days', $1)`, [startBlock]);
 }

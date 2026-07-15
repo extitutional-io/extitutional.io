@@ -60,9 +60,11 @@ polling loop runs instead — `Dockerfile` + `fly.toml` included for that path.
 | `CRON_SECRET` | unset | if set, `/api/cron` requires `Authorization: Bearer …` |
 | `NO_INDEXER` | unset | `1` disables the polling loop (server mode) |
 
-round + grant config lives in the database (seeded on first boot; edit via
-`/admin`). the seed grants have no payout addresses — set real ones in admin
-before the round opens.
+the round is driven entirely from `/admin`: name, description, matching pool,
+per-project cap, min donation, start/end dates, and the indexer's start/end
+blocks are all editable there. first boot seeds one blank round (start block =
+current mainnet head) and zero grants — projects arrive via `/apply` and your
+approval queue. indexing stays paused until a start block is set.
 
 ## trust model
 

@@ -10,6 +10,7 @@ import { ETH_TOKEN, fetchDonationLogs, latestBlock, blockTime } from './chain.js
 import * as store from './db.js';
 
 export async function indexRound(round) {
+  if (!round.start_block || Number(round.start_block) <= 0) return { scanned: 0, inserted: 0 }; // not configured yet
   const cursorKey = `cursor:${round.id}`;
   const from = Number((await store.getMeta(cursorKey)) ?? round.start_block);
   const head = await latestBlock();

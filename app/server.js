@@ -118,7 +118,9 @@ app.get('/', ah(async (req, res) => {
   <span class="mono eyebrow">the projects</span>
   <h2>add several to your cart. give once.</h2>
   <p class="sub">estimated matches update as donations land on-chain. breadth is the whole game — your ten favorite projects beat one.</p>
-  <div class="grants">${grants.map(g => grantCard(g, byId[g.id], maxMatch)).join('')}</div>
+  ${grants.length
+    ? `<div class="grants">${grants.map(g => grantCard(g, byId[g.id], maxMatch)).join('')}</div>`
+    : `<div class="banner" style="margin-top:26px"><b>no projects yet.</b> the round is taking applications — be one of the first in.</div>`}
   <p style="margin-top:24px"><a class="btn" href="/grants">browse all grants →</a> <a class="btn" href="/apply">apply as a project →</a></p>
 </div></section>
 <section class="block" style="padding-top:0"><div class="wrap">
@@ -365,7 +367,31 @@ app.get('/admin', ah(async (req, res) => {
   <p class="lede">approve eligible grants, keep payout addresses right, publish updates. the round's credibility rests here.</p>
 </div></header>
 <section class="block"><div class="wrap">
-  <h2>approval queue (${pending.length})</h2>
+  ${req.query.saved ? '<div class="banner"><b>round saved.</b> live pages pick it up within ~15 seconds.</div>' : ''}
+  ${req.query.err ? `<div class="banner" style="border-color:var(--red)"><b style="color:var(--red)">not saved:</b> ${esc(req.query.err)}</div>` : ''}
+  ${!Number(round.start_block) ? '<div class="banner" style="border-color:var(--red)"><b style="color:var(--red)">indexing paused:</b> set a start block below — donations on-chain before it are ignored, and nothing is scanned until it\'s set.</div>' : ''}
+  <h2>round settings</h2>
+  <form method="post" action="/admin/round" style="max-width:640px">
+    <label>round name</label><input type="text" name="name" required maxlength="80" value="${esc(round.name)}">
+    <label>description (shown on the home page)</label><textarea name="description" rows="3" maxlength="500">${esc(round.description)}</textarea>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+      <div><label>matching pool (eth)</label><input type="text" inputmode="decimal" name="matching_pool_eth" value="${round.matching_pool_eth}"></div>
+      <div><label>per-project cap (0–1)</label><input type="text" inputmode="decimal" name="match_cap_fraction" value="${round.match_cap_fraction}"></div>
+      <div><label>min donation (eth)</label><input type="text" inputmode="decimal" name="min_donation_eth" value="${round.min_donation_eth}"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div><label>starts (utc)</label><input type="datetime-local" name="start_at" required value="${new Date(round.start_at).toISOString().slice(0, 16)}"></div>
+      <div><label>ends (utc)</label><input type="datetime-local" name="end_at" required value="${new Date(round.end_at).toISOString().slice(0, 16)}"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div><label>start block (indexer scans from here)</label><input type="text" inputmode="numeric" name="start_block" value="${round.start_block ?? ''}"></div>
+      <div><label>end block (blank while live; set to freeze results)</label><input type="text" inputmode="numeric" name="end_block" value="${round.end_block ?? ''}"></div>
+    </div>
+    <p style="margin-top:16px"><button class="btn solid" type="submit">save round</button></p>
+    <p class="mono" style="font-size:10px;color:var(--ink-faint)">lowering the start block rescans history automatically. current mainnet head ≈ <a href="https://etherscan.io/blocks" target="_blank" rel="noopener" style="color:var(--ink-dim)">etherscan</a>.</p>
+  </form>
+
+  <h2 style="margin-top:44px">approval queue (${pending.length})</h2>
   ${pending.map(g => `
   <div style="border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-top:14px;background:var(--panel)">
     <div class="mono" style="font-size:10px;color:var(--ink-faint)">${esc(g.category)} · applied ${timeAgo(g.created_at)} · contact: ${esc(g.owner_contact || '—')}</div>
@@ -402,6 +428,35 @@ app.get('/admin', ah(async (req, res) => {
   <p class="mono" style="font-size:10px;color:var(--ink-faint);margin-top:30px">round: ${esc(round.name)} · pool ${fmtEth(round.matching_pool_eth)} · blocks ${round.start_block} → ${round.end_block ?? 'live'} · indexing: ${SERVERLESS ? 'lazy (on traffic) + cron backstop' : 'every 45s'}</p>
 </div></section>`;
   res.send(layout({ title: 'admin · ' + round.name, desc: 'round operator console' }, body));
+}));
+
+app.post('/admin/round', ah(async (req, res) => {
+  if (!requireAdmin(req, res)) return;
+  const round = await store.activeRound();
+  const b = req.body;
+  const fail = m => res.redirect('/admin?err=' + encodeURIComponent(m));
+  const pool = parseFloat(b.matching_pool_eth), cap = parseFloat(b.match_cap_fraction), min = parseFloat(b.min_donation_eth);
+  if (!b.name?.trim()) return fail('round needs a name');
+  if (!(pool >= 0)) return fail('matching pool must be a number ≥ 0');
+  if (!(cap > 0 && cap <= 1)) return fail('cap must be between 0 and 1 (e.g. 0.2 = 20% of the pool per project)');
+  if (!(min >= 0)) return fail('min donation must be a number ≥ 0');
+  const startAt = new Date(b.start_at + ':00Z'), endAt = new Date(b.end_at + ':00Z');
+  if (isNaN(startAt) || isNaN(endAt)) return fail('bad dates');
+  if (endAt <= startAt) return fail('the round has to end after it starts');
+  const startBlock = b.start_block?.trim() ? parseInt(b.start_block, 10) : 0;
+  if (!Number.isInteger(startBlock) || startBlock < 0) return fail('start block must be a block number');
+  const endBlock = b.end_block?.trim() ? parseInt(b.end_block, 10) : null;
+  if (endBlock !== null && (!Number.isInteger(endBlock) || endBlock <= startBlock)) return fail('end block must be after the start block');
+  await store.updateRound(round.id, {
+    name: b.name.trim().slice(0, 80),
+    description: (b.description || '').trim().slice(0, 500),
+    matching_pool_eth: pool, match_cap_fraction: cap, min_donation_eth: min,
+    start_at: startAt.toISOString(), end_at: endAt.toISOString(),
+    start_block: startBlock, end_block: endBlock,
+  });
+  if (Number(round.start_block) !== startBlock) await store.resetCursor(round.id); // rescan from the new start
+  bust();
+  res.redirect('/admin?saved=1');
 }));
 
 app.post('/admin/grants/:id/approve', ah(async (req, res) => {
