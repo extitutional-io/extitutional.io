@@ -201,14 +201,14 @@
   .inverse{display:grid;grid-template-columns:1fr auto 1fr;gap:22px;align-items:stretch;margin-top:48px}
   .ipanel{border:1px solid var(--line);border-radius:12px;background:var(--bg2);padding:24px 24px 18px;display:flex;flex-direction:column}
   .ipanel svg{width:100%;height:auto;display:block;flex:1}
-  .ipanel.extit{border-color:#3b4a25;background:linear-gradient(180deg,#151a0e,var(--bg2))}
+  .ipanel.extit{border-color:transparent;background:radial-gradient(90% 85% at 50% 45%,#151a0e 40%,rgba(21,26,14,0) 100%)}
+  .ipanel.extit svg{overflow:visible}
   .ipanel .pcap{margin-top:14px;font-size:11px;letter-spacing:.14em;color:var(--ink-faint)}
   .ipanel.inst .pcap{color:var(--lilac-dim)}
   .ipanel.extit .pcap{color:var(--lime)}
   .iflip{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--ink-faint);text-align:center}
   .iflip b{font-size:24px;font-weight:400;color:var(--lime);text-shadow:0 0 20px rgba(184,240,92,.5);display:block;animation:flipspin 7s ease-in-out infinite}
   @keyframes flipspin{0%,100%{transform:rotate(0)}50%{transform:rotate(180deg)}}
-  .dwall{animation:march 12s linear infinite}
   @keyframes march{to{stroke-dashoffset:-160}}
   .ipanel.extit .nodes circle{animation:nodepulse 3.2s ease-in-out infinite}
   .ipanel.extit .nodes circle:nth-of-type(2n){animation-delay:1.1s}
@@ -314,6 +314,17 @@
   footer .fl{display:flex;gap:20px}
   footer .fl a{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--ink-dim);text-decoration:none}
   footer .fl a:hover{color:var(--lime)}
+  footer .fl{align-items:center;flex-wrap:wrap}
+  footer .fl a.fbtn{
+    color:var(--lime);border:1px solid var(--lime-dim);border-radius:999px;
+    padding:7px 16px;transition:background .2s,box-shadow .2s,color .2s;
+  }
+  footer .fl a.fbtn:hover{background:rgba(184,240,92,.12);box-shadow:0 0 18px rgba(184,240,92,.25);color:#d8ff96}
+  .commie-egg{
+    display:inline-block;margin-top:44px;font-size:13px;text-decoration:none;
+    color:var(--ink-faint);opacity:.25;transition:opacity .25s,color .25s;
+  }
+  .commie-egg:hover{opacity:1;color:var(--lime)}
 
   /* ---------- app pages shared ---------- */
   .apphero{padding:96px 0 80px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
@@ -408,7 +419,8 @@
   .stamp{margin-top:34px;width:168px;height:168px;border:2.5px dashed var(--lime-dim);border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--mono);font-size:13px;letter-spacing:.18em;line-height:2.1;color:var(--lime);transform:rotate(-8deg);text-shadow:0 0 22px rgba(184,240,92,.4)}
   .undersoil{margin-top:14px}
   .undersoil svg{display:block;width:100%;height:auto}
-  .surface-q{font-size:clamp(34px,4.8vw,62px);max-width:none;text-align:center;margin-bottom:70px;color:#d8ff96;text-shadow:0 0 40px rgba(184,240,92,.3)}
+  .surfaceq-band{position:relative;padding:85px 0;margin-bottom:50px}
+  .surface-q{position:relative;z-index:1;font-size:clamp(34px,4.8vw,62px);max-width:none;text-align:center;color:#d8ff96;text-shadow:0 0 40px rgba(184,240,92,.3),0 0 14px rgba(10,12,8,.9)}
   .ib-link{display:inline-block;margin-top:26px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--lime);text-decoration:none;border:1px solid #3b4a25;border-radius:6px;padding:13px 22px;transition:.15s}
   .ib-link:hover{border-color:var(--lime-dim);background:#151a0e}
   .bigstats{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:52px}
@@ -609,10 +621,11 @@
 
   <section class="block" id="idea">
     <div class="wrap">
-      <h1 class="surface-q">what's below the surface?</h1>
+      <div class="surfaceq-band" id="surfaceq">
+        <h1 class="surface-q">what's below the surface?</h1>
+      </div>
       <span class="mono eyebrow">the idea</span>
-      <h2>an extitution is an institution turned inside out.</h2>
-      <p class="sub">that's the simplest way to see it. an institution holds its people inside the walls. dissolve the walls and let the connections do the holding, and you get an extitution.</p>
+      <h2>an extitution is the inverse of an institution</h2>
       <div class="inverse">
         <div class="ipanel inst">
           <svg viewBox="0 0 320 240" fill="none" aria-hidden="true">
@@ -633,7 +646,7 @@
         <div class="iflip" aria-hidden="true"><b>⟲</b><span>turn it<br>inside out</span></div>
         <div class="ipanel extit">
           <svg viewBox="0 0 320 240" fill="none" aria-hidden="true">
-            <rect class="dwall" x="50" y="28" width="220" height="184" rx="8" stroke="#b8f05c" stroke-width="1.5" stroke-dasharray="6 10" opacity=".28"/>
+            <!-- no walls: the mesh flows past every edge, boundaries stay fluid -->
             <g stroke="#8fc23e" stroke-width="1.2" opacity=".5">
               <path d="M36 52 Q120 14 196 30"/>
               <path d="M196 30 Q262 54 292 96"/>
@@ -646,6 +659,21 @@
               <path d="M160 122 Q158 172 170 218"/>
               <path d="M30 178 Q96 148 160 122"/>
               <path d="M196 30 Q176 78 160 122"/>
+            </g>
+            <g stroke="#8fc23e" stroke-width="1" opacity=".3">
+              <path d="M36 52 Q-10 20 -40 8"/>
+              <path d="M196 30 Q210 -10 224 -34"/>
+              <path d="M292 96 Q330 78 356 74"/>
+              <path d="M288 190 Q330 210 352 228"/>
+              <path d="M170 218 Q168 250 158 274"/>
+              <path d="M30 178 Q-8 200 -34 206"/>
+              <path d="M36 52 Q60 26 52 -12"/>
+              <path d="M292 96 Q312 130 348 148"/>
+            </g>
+            <g fill="#b8f05c" opacity=".45">
+              <circle cx="-6" cy="26" r="3"/><circle cx="216" cy="-12" r="3"/><circle cx="330" cy="80" r="3"/>
+              <circle cx="326" cy="206" r="3"/><circle cx="162" cy="252" r="3"/><circle cx="-10" cy="196" r="3"/>
+              <circle cx="322" cy="136" r="2.6"/><circle cx="56" cy="8" r="2.6"/>
             </g>
             <g class="nodes" fill="#b8f05c">
               <circle cx="36" cy="52" r="6"/>
@@ -1371,6 +1399,7 @@
         <a class="btn solid" href="https://t.me/+YDJcJMtgxjA3ZmQ5" target="_blank" rel="noopener">join the telegram</a>
         <a class="btn" href="#/fund">see the apps</a>
       </div>
+      <a class="commie-egg mono" href="#/commiefree">☭̸</a>
     </div>
   </section>
 </main>
@@ -1515,15 +1544,14 @@
   <div class="wrap">
     <p><span class="shroom footmark" data-size="15" aria-hidden="true"></span>ethereum extitutional is an independent nonprofit growing open, networked coordination at ethereum's app layer. grown, not incorporated. 2026.</p>
     <div class="fl">
-      <a href="#/">home</a>
-      <a href="#/fund">fund</a>
-      <a href="#/trust">trust</a>
+      <a class="fbtn" href="#/">home</a>
+      <a class="fbtn" href="#/fund">fund</a>
+      <a class="fbtn" href="#/trust">trust</a>
       <a href="#/impact">impact</a>
       <a href="#/mycofi">mycofi</a>
       <a href="#/pluralism">pluralism</a>
-      <a href="#/commiefree">commie free</a>
-      <a href="https://t.me/+YDJcJMtgxjA3ZmQ5" target="_blank" rel="noopener">telegram</a>
-      <a href="https://github.com/extitutional-io/extitutional.io/" target="_blank" rel="noopener">github</a>
+      <a href="https://t.me/+YDJcJMtgxjA3ZmQ5" target="_blank" rel="noopener">telegram ↗</a>
+      <a href="https://github.com/extitutional-io/extitutional.io/" target="_blank" rel="noopener">github ↗</a>
     </div>
   </div>
 </footer>
@@ -1567,7 +1595,7 @@
     const sctx = sc.getContext('2d');
     const dpr = Math.min(devicePixelRatio || 1, 2);
     const TAU = Math.PI*2;
-    let W, H, tips, spores, pulses = [], eeNodes = [];
+    let W, H, tips, spores, pulses = [], eeNodes = [], ethFlash = 0;
     const MAX_TIPS = 240;
     const eth = {x:0, y:0, s:0};   // primary epicenter: the glyph, woven into the mat
     const hubs = [];               // named epicenters, eth included
@@ -1684,6 +1712,27 @@
     window.addEventListener('resize', init);
     init();
 
+    // click the eth glyph: energy bursts out of it and merges into the web
+    function ethBurst(){
+      const targets = hubs.filter(h => h.label !== 'ethereum').concat(eeNodes.filter(n => n.r > 1.6));
+      for (const T of targets){
+        pulses.push({
+          ax:eth.x, ay:eth.y, bx:T.x, by:T.y,
+          mx:(eth.x+T.x)/2 + (Math.random()-.5)*180*dpr,
+          my:(eth.y+T.y)/2 + (Math.random()-.5)*180*dpr,
+          t:0, dur:55+Math.random()*75
+        });
+      }
+      ethFlash = 1;
+    }
+    const heroEl = c.closest('.hero');
+    const ethHit = e => {
+      const r = c.getBoundingClientRect();
+      return Math.hypot((e.clientX-r.left)*dpr - eth.x, (e.clientY-r.top)*dpr - eth.y) < eth.s*1.35;
+    };
+    heroEl.addEventListener('click', e => { if (ethHit(e)) ethBurst(); });
+    heroEl.addEventListener('mousemove', e => { heroEl.style.cursor = ethHit(e) ? 'pointer' : ''; });
+
     (function tick(){
       requestAnimationFrame(tick);
       if (!W || !document.querySelector('[data-view="home"]').classList.contains('on')) return;
@@ -1762,10 +1811,11 @@
       if (!eth.s) return;
       const UP = [[0,-1],[.61,.2],[0,.52],[-.61,.2]];
       const LO = [[-.61,.32],[0,1],[.61,.32],[0,.6]];
-      const br = .3 + .1*Math.sin(t*.02);
+      if (ethFlash > .01) ethFlash *= .95;
+      const br = .3 + .1*Math.sin(t*.02) + ethFlash*.55;
       // ambient halo behind the glyph
       const halo = sctx.createRadialGradient(eth.x, eth.y, eth.s*.1, eth.x, eth.y, eth.s*1.7);
-      halo.addColorStop(0, `rgba(184,240,92,${.1+.03*Math.sin(t*.02)})`);
+      halo.addColorStop(0, `rgba(184,240,92,${.1+.03*Math.sin(t*.02)+ethFlash*.3})`);
       halo.addColorStop(1, 'rgba(184,240,92,0)');
       sctx.fillStyle = halo;
       sctx.beginPath(); sctx.arc(eth.x, eth.y, eth.s*1.7, 0, TAU); sctx.fill();
@@ -2240,6 +2290,16 @@
     return {nodes, edges};
   }
 
+  makeNet('surfaceq', (w,h) => {
+    // super networky: dense mesh, brighter nodes, extra cross-links
+    const g = buildMesh(w, h, 130);
+    for (const n of g.nodes) n.al = Math.min(.85, n.al + .18);
+    for (let i=0;i<55;i++){
+      const a = Math.floor(Math.random()*g.nodes.length), b = Math.floor(Math.random()*g.nodes.length);
+      if (a !== b) g.edges.push([a, b, 'lm', .1, 'c']);
+    }
+    return g;
+  });
   makeNet('idea', buildIdea);
   makeNet('map', buildMap);
   makeNet('apps', buildApps);
