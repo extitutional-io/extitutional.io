@@ -102,12 +102,73 @@ function statRow(round, totals, nGrants) {
 
 /* ================= pages ================= */
 
+// pre-round countdown treatment: the whole page is a ticking countdown to
+// round.start_at; "show me info now" reveals the normal home underneath.
+// disappears on its own the moment the round opens.
+function countdownWrap(round, startMs, infoBody) {
+  let d = Math.max(0, startMs - Date.now());
+  const days = Math.floor(d / 864e5); d -= days * 864e5;
+  const hrs = Math.floor(d / 36e5); d -= hrs * 36e5;
+  const min = Math.floor(d / 6e4);
+  const sec = Math.floor((d - min * 6e4) / 1000);
+  const p = n => String(n).padStart(2, '0');
+  return `
+<style>
+  .cd-hero{min-height:calc(100svh - 60px);display:flex;align-items:center;border-bottom:1px solid var(--line)}
+  .cd-hero .wrap{text-align:center;padding-top:40px;padding-bottom:60px}
+  .cd{display:flex;justify-content:center;gap:clamp(10px,3vw,28px);margin:38px 0 30px;flex-wrap:wrap}
+  .cd-cell{min-width:clamp(70px,18vw,150px);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:clamp(14px,2.5vw,26px) 8px}
+  .cd-cell b{display:block;font-size:clamp(40px,9vw,84px);line-height:1;font-weight:600;color:var(--lime);font-variant-numeric:tabular-nums;text-shadow:0 0 40px rgba(184,240,92,.35)}
+  .cd-cell span{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--ink-faint);display:block;margin-top:10px;text-transform:lowercase}
+  .cd-date{color:var(--ink-dim);font-size:17px}
+  .cd-date b{color:var(--ink)}
+  #roundInfo{display:none}
+  #roundInfo.on{display:block;animation:cdfade .5s ease}
+  @keyframes cdfade{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+</style>
+<header class="cd-hero"><div class="wrap">
+  <span class="mono eyebrow">app 01 · quadratic funding · eth on mainnet</span>
+  <h1 style="max-width:none">${esc(round.name)} opens in</h1>
+  <div class="cd">
+    <div class="cd-cell"><b id="cdD">${days}</b><span>days</span></div>
+    <div class="cd-cell"><b id="cdH">${p(hrs)}</b><span>hours</span></div>
+    <div class="cd-cell"><b id="cdM">${p(min)}</b><span>minutes</span></div>
+    <div class="cd-cell"><b id="cdS">${p(sec)}</b><span>seconds</span></div>
+  </div>
+  <p class="cd-date">the crowd decides <b>${new Date(startMs).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</b> — breadth of support beats depth of pockets.</p>
+  <div style="margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <button class="btn solid" id="cdReveal">show me info now</button>
+    <a class="btn" href="/apply">apply as a project →</a>
+  </div>
+</div></header>
+<div id="roundInfo">${infoBody}</div>
+<script>
+(function(){
+  var t = ${startMs};
+  function p(n){ return String(n).padStart(2,'0'); }
+  function tick(){
+    var d = t - Date.now();
+    if (d <= 0) { location.reload(); return; }
+    document.getElementById('cdD').textContent = Math.floor(d/864e5);
+    document.getElementById('cdH').textContent = p(Math.floor(d%864e5/36e5));
+    document.getElementById('cdM').textContent = p(Math.floor(d%36e5/6e4));
+    document.getElementById('cdS').textContent = p(Math.floor(d%6e4/1e3));
+  }
+  setInterval(tick, 1000);
+  var btn = document.getElementById('cdReveal'), info = document.getElementById('roundInfo');
+  function reveal(){ info.classList.add('on'); btn.style.display='none'; try{ localStorage.setItem('ext-cd-revealed','1'); }catch(e){} }
+  btn.addEventListener('click', function(){ reveal(); info.scrollIntoView({behavior:'smooth'}); });
+  try{ if (localStorage.getItem('ext-cd-revealed')==='1') reveal(); }catch(e){}
+})();
+</script>`;
+}
+
 app.get('/', ah(async (req, res) => {
   const { round, grants, totals, byId } = await roundData();
   const st = roundStatus(round);
   const maxMatch = Math.max(0, ...Object.values(byId).map(t => t.match));
   const feed = await store.feedItems(round.id, 8);
-  const body = `
+  const infoBody = `
 <header class="hero"><div class="wrap">
   <span class="mono eyebrow">app 01 · quadratic funding · eth on mainnet</span>
   <h1>${esc(round.name)} <span class="statuspill ${st.live ? 'live' : ''}"><i></i>${esc(st.label)}</span></h1>
@@ -129,6 +190,8 @@ app.get('/', ah(async (req, res) => {
   <div class="feed">${feed.map(feedLine).join('') || '<div class="fitem"><span class="what">quiet so far — be the first donation.</span></div>'}</div>
   <p style="margin-top:18px"><a class="btn sm" href="/feed">full feed →</a></p>
 </div></section>`;
+  const startMs = new Date(round.start_at).getTime();
+  const body = Date.now() < startMs ? countdownWrap(round, startMs, infoBody) : infoBody;
   res.send(layout({
     title: round.name + ' · quadratic funding',
     desc: round.description,
