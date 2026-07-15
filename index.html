@@ -406,6 +406,9 @@
   .ib-words .ib-stat .v,.ib-words .ib-stat .k{position:relative;z-index:1}
   .ib-net{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.5}
   .stamp{margin-top:34px;width:168px;height:168px;border:2.5px dashed var(--lime-dim);border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--mono);font-size:13px;letter-spacing:.18em;line-height:2.1;color:var(--lime);transform:rotate(-8deg);text-shadow:0 0 22px rgba(184,240,92,.4)}
+  .undersoil{margin-top:14px}
+  .undersoil svg{display:block;width:100%;height:auto}
+  .surface-q{font-size:clamp(34px,4.8vw,62px);max-width:none;text-align:center;margin-bottom:70px;color:#d8ff96;text-shadow:0 0 40px rgba(184,240,92,.3)}
   .ib-link{display:inline-block;margin-top:26px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--lime);text-decoration:none;border:1px solid #3b4a25;border-radius:6px;padding:13px 22px;transition:.15s}
   .ib-link:hover{border-color:var(--lime-dim);background:#151a0e}
   .bigstats{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:52px}
@@ -539,7 +542,7 @@
     <div class="scrollhint"><span>grow down</span><i></i></div>
   </header>
 
-  <section class="block" id="apps" style="padding-bottom:190px">
+  <section class="block" id="apps" style="padding-bottom:0">
     <div class="wrap">
       <span class="mono eyebrow">the fruiting bodies</span>
       <h2>two apps, one trust network.</h2>
@@ -568,11 +571,45 @@
           <span class="go mono">enter trust →</span>
         </a>
       </div>
+      <div class="undersoil" aria-hidden="true">
+        <svg viewBox="0 0 1200 260" preserveAspectRatio="xMidYMin meet" fill="none">
+          <!-- hyphae dropping from the two fruiting bodies, fusing into one mat below -->
+          <g stroke="#8fc23e" stroke-width="1.2" opacity=".5">
+            <path d="M300 0 Q270 70 210 130 T110 240"/>
+            <path d="M300 0 Q305 80 330 150 T390 250"/>
+            <path d="M300 0 Q330 60 420 110 T600 170"/>
+            <path d="M260 0 Q230 90 180 160 T60 230"/>
+            <path d="M340 0 Q380 90 470 140 T560 220"/>
+            <path d="M900 0 Q930 70 990 130 T1090 240"/>
+            <path d="M900 0 Q895 80 870 150 T810 250"/>
+            <path d="M900 0 Q870 60 780 110 T600 170"/>
+            <path d="M940 0 Q970 90 1020 160 T1140 230"/>
+            <path d="M860 0 Q820 90 730 140 T640 220"/>
+          </g>
+          <g stroke="#8fc23e" stroke-width="1" opacity=".35">
+            <path d="M210 130 Q250 180 310 220"/>
+            <path d="M420 110 Q430 170 410 240"/>
+            <path d="M990 130 Q950 180 890 220"/>
+            <path d="M780 110 Q770 170 790 240"/>
+            <path d="M600 170 Q560 210 540 250"/>
+            <path d="M600 170 Q640 210 660 250"/>
+          </g>
+          <g fill="#b8f05c">
+            <circle cx="600" cy="170" r="4" opacity=".8"/>
+            <circle cx="210" cy="130" r="2.6" opacity=".6"/><circle cx="420" cy="110" r="2.4" opacity=".6"/>
+            <circle cx="990" cy="130" r="2.6" opacity=".6"/><circle cx="780" cy="110" r="2.4" opacity=".6"/>
+            <circle cx="110" cy="240" r="2" opacity=".45"/><circle cx="330" cy="150" r="2" opacity=".5"/>
+            <circle cx="1090" cy="240" r="2" opacity=".45"/><circle cx="870" cy="150" r="2" opacity=".5"/>
+            <circle cx="560" cy="220" r="2.2" opacity=".5"/><circle cx="640" cy="220" r="2.2" opacity=".5"/>
+          </g>
+        </svg>
+      </div>
     </div>
   </section>
 
   <section class="block" id="idea">
     <div class="wrap">
+      <h1 class="surface-q">what's below the surface?</h1>
       <span class="mono eyebrow">the idea</span>
       <h2>an extitution is an institution turned inside out.</h2>
       <p class="sub">that's the simplest way to see it. an institution holds its people inside the walls. dissolve the walls and let the connections do the holding, and you get an extitution.</p>
