@@ -323,11 +323,8 @@
   footer .fword b{font-weight:600;color:#d8ff96}
   footer .fabout{margin-left:auto;max-width:56ch;text-align:right;display:flex;flex-direction:column;gap:18px;align-items:flex-end}
   footer .fabout p{color:var(--ink-dim);font-size:15px;line-height:1.75}
-  footer .ftag{
-    font-size:11px;letter-spacing:.22em;color:var(--lime);
-    border:1px solid var(--lime-dim);border-radius:999px;padding:8px 18px;
-    box-shadow:0 0 24px rgba(184,240,92,.12);
-  }
+  footer .fmyc{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  footer .wrap{position:relative;z-index:1}
   footer .fl{display:flex;gap:20px}
   footer .fl a{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--ink-dim);text-decoration:none}
   footer .fl a:hover{color:var(--lime)}
@@ -1558,6 +1555,33 @@
 </main>
 
 <footer>
+  <svg class="fmyc" viewBox="0 0 1200 300" preserveAspectRatio="none" fill="none" aria-hidden="true">
+    <!-- mycelium growing out of the footer mark, top left, toward bottom right -->
+    <g stroke="#8fc23e" stroke-width="1.2" opacity=".38">
+      <path id="fm1" d="M160 95 Q300 120 420 150 T780 210 T1210 280"/>
+      <path id="fm2" d="M160 95 Q330 70 520 110 T940 190 T1220 240"/>
+      <path id="fm3" d="M160 95 Q240 170 380 200 T760 260 T1150 305"/>
+      <path id="fm4" d="M160 95 Q220 50 320 55 T640 95"/>
+    </g>
+    <g id="fmRoots" stroke="#b8f05c" stroke-width="1.3" opacity=".55"></g>
+    <g stroke="#8fc23e" stroke-width="1" opacity=".22">
+      <path d="M420 150 Q470 100 560 92"/>
+      <path d="M520 110 Q560 170 540 230"/>
+      <path d="M780 210 Q830 160 930 150"/>
+      <path d="M760 260 Q820 290 900 296"/>
+      <path d="M640 95 Q720 110 790 100"/>
+      <path d="M940 190 Q1000 150 1090 145"/>
+      <path d="M380 200 Q400 250 370 300"/>
+    </g>
+    <g fill="#b8f05c">
+      <circle cx="420" cy="150" r="2.8" opacity=".55"/><circle cx="520" cy="110" r="2.4" opacity=".5"/>
+      <circle cx="780" cy="210" r="3" opacity=".55"/><circle cx="940" cy="190" r="2.6" opacity=".5"/>
+      <circle cx="640" cy="95" r="2.4" opacity=".45"/><circle cx="560" cy="92" r="2" opacity=".4"/>
+      <circle cx="930" cy="150" r="2.2" opacity=".45"/><circle cx="1090" cy="145" r="2.4" opacity=".45"/>
+      <circle cx="760" cy="260" r="2.6" opacity=".5"/><circle cx="1150" cy="290" r="2.8" opacity=".5"/>
+      <circle cx="380" cy="200" r="2.2" opacity=".45"/><circle cx="540" cy="230" r="2" opacity=".4"/>
+    </g>
+  </svg>
   <div class="wrap">
     <div class="fbrand">
       <span class="shroom" data-size="42" aria-hidden="true"></span>
@@ -1574,8 +1598,7 @@
       </div>
     </div>
     <div class="fabout">
-      <p>ethereum extitutional is an independent nonprofit growing open, networked, community-shaped coordination at ethereum's app layer. no new token, no board seats for funders: a trustgraph governs, grants and matching pools fund, and everything ships open source. rooted in gitcoin's social structure, a decade of quadratic funding receipts, and the belief that networks can hold people better than walls ever did.</p>
-      <span class="ftag mono">grown, not incorporated · 2026</span>
+      <p>ethereum extitutional is an independent nonprofit growing open, networked, community-shaped coordination at ethereum's app layer.</p>
     </div>
   </div>
 </footer>
@@ -1978,6 +2001,29 @@
     </svg>`;
   }
   document.querySelectorAll('.shroom').forEach(el => { el.innerHTML = shroomSVG(+el.dataset.size || 20); });
+
+  // footer mycelium: re-root the runners so they grow out of the footer mark
+  function rootFmyc(){
+    const f = document.querySelector('footer'), svg = f && f.querySelector('.fmyc');
+    const mark = f && f.querySelector('.fbrand .shroom');
+    if (!svg || !mark || !f.offsetWidth) return;
+    const fr = f.getBoundingClientRect(), mr = mark.getBoundingClientRect();
+    const ox = (mr.left + mr.width*.5 - fr.left) / fr.width * 1200;
+    const oy = (mr.top + mr.height*.92 - fr.top) / fr.height * 300;
+    const run = (ex, ey, sag) =>
+      `M${ox} ${oy} C ${ox+(ex-ox)*.3} ${oy+sag}, ${ox+(ex-ox)*.68} ${ey-sag*.5}, ${ex} ${ey}`;
+    const d = {fm1:run(1210,280,70), fm2:run(1220,240,-35), fm3:run(1150,305,120), fm4:run(640,95,-45)};
+    for (const id in d){ const p = svg.querySelector('#'+id); if (p) p.setAttribute('d', d[id]); }
+    // short root stubs right at the stem
+    const roots = svg.querySelector('#fmRoots');
+    if (roots) roots.innerHTML =
+      `<path d="M${ox} ${oy} q-14 16 -34 22" fill="none"/>` +
+      `<path d="M${ox} ${oy} q12 18 30 24" fill="none"/>` +
+      `<path d="M${ox} ${oy} q2 20 -6 34" fill="none"/>`;
+  }
+  rootFmyc();
+  window.addEventListener('resize', rootFmyc);
+  window.addEventListener('load', rootFmyc);
 
   // clicking the wordmark releases an energy pulse from the mushroom
   document.querySelector('.wordmark').addEventListener('click', e => {
