@@ -1,8 +1,8 @@
-# extitutional.io
+# extitution.io
 
 the other half of the barbell. an independent nonprofit growing open, networked, community-shaped coordination at ethereum's app layer.
 
-live at [extitutional.io](https://extitutional.io)
+live at [extitution.io](https://extitution.io)
 
 ## what's here
 
